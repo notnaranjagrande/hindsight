@@ -1,0 +1,86 @@
+{
+ "tencent": {
+  "stock": 3.89,
+  "index": 1.52
+ },
+ "hsbc": {
+  "stock": 0.86,
+  "index": 1.52
+ },
+ "aia": {
+  "stock": 2.35,
+  "index": 1.52
+ },
+ "evergrande": {
+  "stock": 0.33,
+  "index": 1.23
+ },
+ "evolution": {
+  "stock": 14.44,
+  "index": 1.6
+ },
+ "hm": {
+  "stock": 0.73,
+  "index": 1.6
+ },
+ "swedbank": {
+  "stock": 1.06,
+  "index": 1.6
+ },
+ "netflix": {
+  "stock": 4.75,
+  "index": 2.03
+ },
+ "ge": {
+  "stock": 0.39,
+  "index": 2.03
+ },
+ "boeing": {
+  "stock": 1.61,
+  "index": 2.03
+ },
+ "micron": {
+  "stock": 5.17,
+  "index": 2.03
+ },
+ "exxon": {
+  "stock": 0.68,
+  "index": 2.03
+ },
+ "visa": {
+  "stock": 2.98,
+  "index": 2.03
+ },
+ "att": {
+  "stock": 1.25,
+  "index": 2.03
+ },
+ "horton": {
+  "stock": 2.36,
+  "index": 2.03
+ },
+ "underarmour": {
+  "stock": 0.44,
+  "index": 2.03
+ },
+ "amat": {
+  "stock": 5.06,
+  "index": 2.03
+ },
+ "cocacola": {
+  "stock": 1.47,
+  "index": 2.03
+ },
+ "intel": {
+  "stock": 1.67,
+  "index": 2.03
+ },
+ "ford": {
+  "stock": 0.8,
+  "index": 2.03
+ },
+ "disney": {
+  "stock": 1.83,
+  "index": 2.03
+ }
+}

@@ -8,7 +8,7 @@ Statisk webbapp (HTML/JS, inget byggsteg) på GitHub Pages med Supabase som data
 
 | Fil | Vad |
 |---|---|
-| `cards.json` | Korten i spelordning (dag 1 = första kortet), på svenska och engelska |
+| `cards.json` | De 21 korten i spelordning (dag 1 = första kortet), på svenska och engelska. Genereras av `tools/build_cards.py`, redigera inte för hand |
 | `test.json` | De 10 begreppsfrågorna i för- och eftertestet |
 | `config.js` | Supabase-nycklar, startdatum och vilken dag eftertestet öppnar |
 | `app.js` | Skärmarna: start, kort, reveal, mikrofråga, de andras gissningar, test |
@@ -16,6 +16,8 @@ Statisk webbapp (HTML/JS, inget byggsteg) på GitHub Pages med Supabase som data
 | `i18n.js` | All UI-text på svenska och engelska |
 | `supabase/schema.sql` | Tabeller och funktioner. Klistras in i Supabase en gång |
 | `series.json` | Veckovisa totalavkastningskurvor (aktie och indexfond) för grafen i revealen |
+| `tools/build_cards.py` | Bygger `cards.json` (texter + siffror). Körs med `python3 tools/build_cards.py` |
+| `tools/figures_us.json` | Nyckeltal för de amerikanska bolagen, uträknade ur SEC:s bokslutsdata |
 | `tools/make_series.py` | Skapar `series.json` från Yahoo Finance-kurser. Se skriptet för hur den körs |
 
 ## Köra lokalt
@@ -24,7 +26,9 @@ Statisk webbapp (HTML/JS, inget byggsteg) på GitHub Pages med Supabase som data
 python3 -m http.server 8123
 ```
 
-Öppna http://localhost:8123. I demoläge kan du testa vilken dag som helst med `?day=8`.
+Öppna http://localhost:8123/?demo=1&day=8. `?demo=1` kör lokalt läge utan att spara något i Supabase, och `?day=N` testar vilken dag som helst.
+
+Ändrar du `cards.json`, `test.json` eller `series.json`: byt `contentVersion` i `config.js`, annars kan webbläsare visa gamla filer i upp till tio minuter.
 
 ## Sätta upp (en gång)
 

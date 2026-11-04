@@ -89,10 +89,22 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .league li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
 .league li.me{border-color:var(--accent);background:var(--accent-soft)}
 .league b{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-fieldset{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0;display:flex;flex-direction:column;gap:6px}
-legend{font-weight:600;padding:0 4px}
+.qbox{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.qbox .q{margin-bottom:2px}
 .opt{display:flex;gap:8px;align-items:flex-start;font-size:14px;cursor:pointer}
 .opt input{margin-top:4px;accent-color:var(--accent)}
 .err{color:var(--down);font-size:14px}
 .foot{font-size:12px;color:var(--muted);text-align:center}
 @media (prefers-reduced-motion:reduce){.fill{transition:none}}
+
+.small{font-size:13px}
+.dots{display:flex;gap:6px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.intro p{font-size:16px;line-height:1.6}
+.btn-row{display:flex;gap:8px}
+.btn-row button{flex:1}
+.sources{font-size:13px;color:var(--muted)}
+.sources summary{cursor:pointer}
+.sources ul{margin:6px 0 4px;padding-left:18px}
+.sources a{color:var(--accent)}

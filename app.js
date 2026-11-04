@@ -27,9 +27,10 @@ const mult = x => "×" + num(x, 2);
 async function boot() {
   setLang(lang);
   try {
-    [CARDS, TEST] = await Promise.all([fetch("cards.json").then(r => r.json()), fetch("test.json").then(r => r.json())]);
+    const v = encodeURIComponent(cfg.contentVersion || "1"); // bump in config.js when cards.json / test.json / series.json change, so browsers fetch the new files
+    [CARDS, TEST] = await Promise.all([fetch("cards.json?v=" + v).then(r => r.json()), fetch("test.json?v=" + v).then(r => r.json())]);
   } catch (e) { return fail("Could not load cards.json / test.json"); }
-  try { SERIES = (await fetch("series.json").then(r => r.json())).series || {}; } catch (e) {}
+  try { SERIES = (await fetch("series.json?v=" + encodeURIComponent(cfg.contentVersion || "1")).then(r => r.json())).series || {}; } catch (e) {}
 
   const online = cfg.supabaseUrl && cfg.supabaseAnonKey && !params.get("demo"); // ?demo=1 forces local demo mode for testing
   let code = params.get("p");
@@ -52,7 +53,7 @@ async function boot() {
   day = daysBetween(cfg.studyStart, today) + 1;
   if (store.demo) day = +params.get("day") || Math.max(1, day); // ?day=N lets you test unlocking in demo mode
 
-  st.tests.pre ? home() : test("pre");
+  st.tests.pre ? home() : intro(0);
 }
 
 function fail(msg) { stage().innerHTML = `<section class="card"><p>${esc(msg)}</p></section>`; }
@@ -66,6 +67,18 @@ function topbar() {
 $("#lang").onclick = () => { setLang(lang === "sv" ? "en" : "sv"); topbar(); current && current(); };
 let current = null; // re-render the current screen when the language changes
 const show = fn => { current = fn; topbar(); fn(); window.scrollTo(0, 0); };
+
+// ---------- introduction (shown before the first test; reachable again from the start page) ----------
+function intro(i = 0, then = () => test("pre")) { show(() => renderIntro(i, then)); }
+function renderIntro(i, then) {
+  const slides = STRINGS[lang].intro, sl = slides[i], last = i === slides.length - 1;
+  stage().innerHTML = `<section class="card intro">
+    <div class="dots" aria-hidden="true">${slides.map((_, j) => `<i class="${j === i ? "on" : ""}"></i>`).join("")}</div>
+    <h2>${esc(sl.title)}</h2>${sl.body.map(p => `<p>${esc(p)}</p>`).join("")}
+    <div class="btn-row">${i ? `<button id="back">${t("introBack")}</button>` : ""}<button class="primary" id="fwd">${last ? t("introStart") : t("introNext")}</button></div></section>`;
+  $("#fwd").onclick = () => last ? then() : intro(i + 1, then);
+  if (i) $("#back").onclick = () => intro(i - 1, then);
+}
 
 // ---------- home ----------
 function home() { show(renderHome); }
@@ -85,8 +98,10 @@ async function renderHome() {
       `<div class="row-item"><span>${esc(L(c.title))}</span><button data-card="${c.id}">${t("play")}</button></div>`).join("")}</div>` : ""}
     ${day >= cfg.postTestDay && !st.tests.post ? `<button id="post">${t("postCta")}</button>` : ""}
   </section>
-  <section class="card"><div class="eyebrow"><span>${t("league")}</span></div><div id="league" class="muted">${t("loading")}</div></section>`;
+  <section class="card"><div class="eyebrow"><span>${t("league")}</span></div><div id="league" class="muted">${t("loading")}</div></section>
+  <button class="link" id="again-intro">${t("showIntro")}</button>`;
 
+  $("#again-intro").onclick = () => intro(0, home);
   if ($("#today")) $("#today").onclick = () => ask(todayCard);
   stage().querySelectorAll("[data-card]").forEach(b => b.onclick = () => ask(CARDS.find(c => c.id === b.dataset.card)));
   if ($("#post")) $("#post").onclick = () => test("post");
@@ -149,27 +164,36 @@ function renderAsk(card) {
     reveal(card);
   };
 }
+function bucket(k, v) {
+  if (k === "pe") return v < 12 ? "low" : v < 25 ? "mid" : v < 50 ? "high" : "vhigh";
+  if (k === "growth") return v < 0 ? "neg" : v < 5 ? "low" : v < 12 ? "mid" : v < 25 ? "fast" : "vfast";
+  return v === 0 ? "none" : v < 1 ? "low" : v < 3 ? "mid" : v < 5 ? "high" : "vhigh";
+}
 function figureValue(card, k) {
-  const f = card.figures || {};
-  let val, sub = "", exact = true;
-  if (k === "pe" && f.pe != null) { val = num(f.pe, 0); if (f.pe_index != null) sub = t("indexAvg", { v: num(f.pe_index, 0) }); }
-  else if (k === "growth" && f.growth != null) { val = (f.growth > 0 ? "+" : "") + num(f.growth, 0) + " %"; if (f.growth_index != null) sub = t("indexAvg", { v: num(f.growth_index, 0) + " %" }); }
-  else if (k === "debt" && f.debt != null) { val = num(f.debt, 1); }
-  else { val = L(card.clues?.[k]); exact = false; } // until the real figures are in cards.json
-  return { val, sub, exact };
+  const f = card.figures || {}, v = f[k], approx = (f.approx || []).includes(k);
+  if (v != null) {
+    const val = k === "pe" ? (approx ? "≈" : "") + num(v, 0)
+      : k === "growth" ? (v > 0 ? "+" : v < 0 ? "−" : "") + num(Math.abs(v), 0) + " %"
+      : v === 0 ? t("noDebt") : num(v, 1) + " " + t("unit.years");
+    const shown = k === "growth" ? num(Math.abs(v), 0) : num(v, k === "pe" ? 0 : 1);
+    return { val, sub: v === 0 && k === "debt" ? "" : t("unit." + k), meaning: t("meaning." + k + "." + bucket(k, v), { v: shown }),
+             remark: L(f[k + "_remark"]), approx };
+  }
+  // no meaningful number (a bank's debt, a loss-making year): show a plain word and explain why
+  return { val: L(card.clues?.[k]) || "–", sub: "", meaning: L(f[k + "_note"]), remark: "", approx: false };
 }
 function figure(card, k) {
-  const { val, sub, exact } = figureValue(card, k);
-  return `<button class="clue" data-k="${k}" aria-expanded="false"><small>${t("fig." + k)}<span class="i" aria-hidden="true">i</span></small><span>${esc(val)}</span>${sub ? `<em>${sub}</em>` : ""}${exact ? "" : `<em><i>${t("preliminary")}</i></em>`}</button>`;
+  const { val, sub } = figureValue(card, k);
+  return `<button class="clue" data-k="${k}" aria-expanded="false"><small>${t("fig." + k)}<span class="i" aria-hidden="true">i</span></small><span>${esc(val)}</span>${sub ? `<em>${esc(sub)}</em>` : ""}</button>`;
 }
 function infoBox(card, k) {
   const inf = STRINGS[lang].info[k];
   let mine = "";
   if (k !== "basics") {
-    const { val, sub, exact } = figureValue(card, k);
-    const label = card.clues?.[k]?.sv, means = STRINGS[lang].means[k]?.[label];
-    mine = `<div class="info-this"><small>${t("infoThis")}</small><b>${esc(val)}</b>${sub ? ` <span class="muted">· ${sub}</span>` : ""}
-      ${means ? `<p>${esc(means)}</p>` : ""}${exact ? "" : `<p class="muted">${t("infoPrelim")}</p>`}</div>`;
+    const { val, sub, meaning, remark, approx } = figureValue(card, k);
+    mine = `<div class="info-this"><small>${t("infoThis")}</small><b>${esc(val)}</b>${sub ? ` <span class="muted">${esc(sub)}</span>` : ""}
+      ${meaning ? `<p>${esc(meaning)}</p>` : ""}${remark ? `<p class="muted">${esc(remark)}</p>` : ""}${approx ? `<p class="muted">${t("approx")}</p>` : ""}
+      <p class="muted">${t("figsFrom", { fy: card.figures?.fy })}</p></div>`;
   }
   return `<div class="info-head"><div><b>${esc(inf.title)}</b><div class="muted">${esc(inf.tag)}</div></div><button class="link" id="info-close">${t("infoClose")} ✕</button></div>
     ${mine}${inf.sections.map(([h, p]) => `<h4>${esc(h)}</h4><p>${esc(p)}</p>`).join("")}`;
@@ -185,8 +209,10 @@ function renderReveal(card) {
     ${chartHtml(card, beat) || barsHtml(card, beat)}
     ${card.approx ? `<small class="muted">${t("approx")}</small>` : ""}
     <div class="verdict ${ok ? "good" : "bad"}">${ok ? t("right") : t("wrong")}, ${a.confidence} % ${t("sure")} · ${a.points > 0 ? "+" : ""}${a.points} ${t("pointsWord")}</div>
+    <p class="muted small">${t("scoreHint")}</p>
     <p>${esc(L(card.story))}</p>
     <div class="lesson"><b>${esc(L(card.lesson.title))}</b>${esc(L(card.lesson.text))}</div>
+    ${sourcesHtml(card)}
     <button class="ghost" id="rec" ${a.recognised ? "disabled" : ""}>${a.recognised ? t("recognisedNoted") : t("recognised")}</button>
     <button class="primary" id="next">${t("next")}</button></section>`;
   animateReveal();
@@ -197,6 +223,11 @@ function renderReveal(card) {
   $("#next").onclick = () => { store.log("reveal_time", card.id, { ms: Date.now() - t0 }); micro(card); };
 }
 
+// Sources are shown only after the reveal, since the links would give the company away
+function sourcesHtml(card) {
+  const src = card.figures?.src || []; if (!src.length) return "";
+  return `<details class="sources"><summary>${t("sourcesTitle")}</summary><ul>${src.map(u => `<li><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(new URL(u).hostname)}</a></li>`).join("")}</ul><p class="muted">${t("sourcesNote")}</p></details>`;
+}
 function barsHtml(card, beat) {
   return `<div class="bars">
       <div class="bar"><span>${t("stock")}</span><div class="track"><div class="fill" data-w="${barW(card.stock)}" style="background:var(${beat ? "--up" : "--down"})"></div></div><span class="num">${mult(card.stock)}</span></div>
@@ -292,8 +323,8 @@ function renderTest(kind) {
   const picked = {};
   stage().innerHTML = `<section class="card">
     <h2>${kind === "pre" ? t("preTitle") : t("postTitle")}</h2><p class="muted">${t("testIntro")}</p>
-    ${TEST.map((q, qi) => `<fieldset><legend>${qi + 1}. ${esc(L(q.q))}</legend>${q.options.map((o, i) =>
-      `<label class="opt"><input type="radio" name="${q.id}" value="${i}"> ${esc(L(o))}</label>`).join("")}</fieldset>`).join("")}
+    ${TEST.map((q, qi) => `<div class="qbox" role="radiogroup" aria-label="${qi + 1}"><p class="q">${qi + 1}. ${esc(L(q.q))}</p>${q.options.map((o, i) =>
+      `<label class="opt"><input type="radio" name="${q.id}" value="${i}"> ${esc(L(o))}</label>`).join("")}</div>`).join("")}
     <div class="err" id="err" hidden></div>
     <button class="primary" id="send">${t("submit")}</button></section>`;
   stage().querySelectorAll("input[type=radio]").forEach(r => r.onchange = () => { picked[r.name] = +r.value; });

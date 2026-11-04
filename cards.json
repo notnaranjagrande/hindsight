@@ -1,172 +1,1630 @@
 [
-  {
-    "id": "tencent", "name": "Tencent", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "Hongkong · Hang Seng", "en": "Hong Kong · Hang Seng"},
-    "title": {"sv": "Ett chatt- och spelbolag som få utanför Kina känner till", "en": "A messaging and gaming company few outside China have heard of"},
-    "desc": {"sv": "Driver landets största chattapp med över 700 miljoner användare. Tjänar pengar på mobilspel och har börjat med betalningar direkt i appen.", "en": "Runs the country's biggest chat app, with over 700 million users. Makes money from mobile games, and has just started offering payments inside the app."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Dyr", "en": "Expensive"}, "growth": {"sv": "Mycket snabb", "en": "Very fast"}, "debt": {"sv": "Låg", "en": "Low"}},
-    "stock": 3.89, "index": 1.52,
-    "story": {"sv": "WeChat Pay och spelen växte vidare. Aktien nästan fyrdubblades, medan indexfonden steg ungefär hälften.", "en": "WeChat Pay and the games kept growing. The stock almost quadrupled, while the index fund rose about half."},
-    "lesson": {"title": {"sv": "Dyr kan vara rätt pris", "en": "Expensive can be the right price"}, "text": {"sv": "Ett högt P/E betyder att marknaden väntar sig hög tillväxt. Det lönar sig bara om tillväxten faktiskt kommer, vilket den gjorde här.", "en": "A high P/E means the market expects fast growth. It only pays off if the growth actually comes, and here it did."}},
-    "micro": {
-      "q": {"sv": "Bolag A har P/E 10, bolag B har P/E 40. Av vilket väntar sig marknaden mest tillväxt?", "en": "Company A has a P/E of 10, company B a P/E of 40. Which does the market expect to grow faster?"},
-      "options": [{"sv": "A", "en": "A"}, {"sv": "B", "en": "B"}, {"sv": "Lika mycket", "en": "The same"}],
-      "correct": 1,
-      "explain": {"sv": "Ett högt P/E betyder att man betalar mycket för dagens vinst. Det är bara rimligt om vinsten väntas växa snabbt.", "en": "A high P/E means paying a lot for today's profit. That only makes sense if profits are expected to grow fast."}
-    }
+ {
+  "id": "tencent",
+  "name": "Tencent",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
   },
-  {
-    "id": "hsbc", "name": "HSBC", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "Hongkong · Hang Seng", "en": "Hong Kong · Hang Seng"},
-    "title": {"sv": "En av världens största banker, med fet utdelning", "en": "One of the world's largest banks, with a fat dividend"},
-    "desc": {"sv": "Global bank med tyngdpunkt i Asien. Stabil, välkänd och ger en direktavkastning på över 6 %. Många pensionärer i Hongkong äger den.", "en": "A global bank centred on Asia. Stable, well known, and paying a dividend yield above 6 %. Many retirees in Hong Kong own it."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Billig", "en": "Cheap"}, "growth": {"sv": "Låg", "en": "Low"}, "debt": {"sv": "Bank (hög per definition)", "en": "Bank (high by definition)"}},
-    "stock": 0.86, "index": 1.52,
-    "story": {"sv": "Låga räntor pressade marginalerna, och 2020 stoppades utdelningen på uppmaning av Bank of England. Även med utdelningar förlorade ägarna ungefär 14 %.", "en": "Low interest rates squeezed margins, and in 2020 the dividend was stopped at the request of the Bank of England. Even with dividends, owners lost about 14 %."},
-    "lesson": {"title": {"sv": "Billig kan vara billig av en anledning", "en": "Cheap can be cheap for a reason"}, "text": {"sv": "Låg värdering och hög utdelning ser tryggt ut men kan spegla att marknaden väntar sig svag utveckling. Utdelningar är inte garanterade.", "en": "A low valuation and a high dividend look safe, but can mean the market expects weak results. Dividends are not guaranteed."}},
-    "micro": {
-      "q": {"sv": "Ett P/E på 20 betyder att …", "en": "A P/E of 20 means that …"},
-      "options": [{"sv": "aktien kostar 20 gånger bolagets årsvinst per aktie", "en": "the share costs 20 times the company's yearly profit per share"}, {"sv": "aktien har stigit 20 % i år", "en": "the share has risen 20 % this year"}, {"sv": "bolaget växer 20 % per år", "en": "the company grows 20 % per year"}],
-      "correct": 0,
-      "explain": {"sv": "P/E = pris delat med vinst per aktie. Med P/E 20 tar det 20 år av dagens vinst att \"betala tillbaka\" priset.", "en": "P/E = price divided by earnings per share. At a P/E of 20 it takes 20 years of today's profit to \"pay back\" the price."}
-    }
+  "years": 5,
+  "market": {
+   "sv": "Hongkong",
+   "en": "Hong Kong"
   },
-  {
-    "id": "netflix", "name": "Netflix", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "USA · S&P 500", "en": "USA · S&P 500"},
-    "title": {"sv": "En dvd-uthyrare som blivit streamingtjänst", "en": "A DVD rental company turned streaming service"},
-    "desc": {"sv": "Har precis lanserats i 130 nya länder. Lägger miljarder på egna serier och går knappt med vinst. Många analytiker tycker att aktien är absurt dyr.", "en": "Has just launched in 130 new countries. Spends billions on its own shows and barely makes a profit. Many analysts think the stock is absurdly expensive."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Extremt dyr", "en": "Extremely expensive"}, "growth": {"sv": "Mycket snabb", "en": "Very fast"}, "debt": {"sv": "Stigande", "en": "Rising"}},
-    "stock": 4.76, "index": 2.03,
-    "story": {"sv": "Abonnenterna mer än tredubblades och pandemin gav ett extra lyft. Aktien steg nästan fem gånger.", "en": "Subscribers more than tripled and the pandemic gave an extra boost. The stock rose almost five times."},
-    "lesson": {"title": {"sv": "Konsensus kan ha fel åt båda hållen", "en": "Consensus can be wrong both ways"}, "text": {"sv": "När alla tycker att en aktie är för dyr kan de ha rätt, eller missa hur stor marknaden blir.", "en": "When everyone thinks a stock is too expensive they may be right, or they may miss how big the market becomes."}},
-    "micro": {
-      "q": {"sv": "En aktie med P/E 80 steg kraftigt de följande åren. Vad krävdes troligen?", "en": "A stock with a P/E of 80 rose sharply over the following years. What was most likely needed?"},
-      "options": [{"sv": "Att vinsten växte snabbt, som marknaden hoppades", "en": "That profits grew fast, as the market hoped"}, {"sv": "Att P/E sjönk till 10", "en": "That the P/E fell to 10"}, {"sv": "Ingenting, högt P/E betyder alltid uppgång", "en": "Nothing, a high P/E always means gains"}],
-      "correct": 0,
-      "explain": {"sv": "Ett högt P/E är ett vad på framtida tillväxt. Kommer tillväxten kan aktien stiga, uteblir den faller den ofta hårt.", "en": "A high P/E is a bet on future growth. If the growth comes the stock can rise; if not, it often falls hard."}
-    }
+  "title": {
+   "sv": "Ett kinesiskt chatt- och spelbolag",
+   "en": "A Chinese chat and gaming company"
   },
-  {
-    "id": "aia", "name": "AIA", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "Hongkong · Hang Seng", "en": "Hong Kong · Hang Seng"},
-    "title": {"sv": "Ett livförsäkringsbolag i hela Asien", "en": "A life insurer across Asia"},
-    "desc": {"sv": "Säljer livförsäkringar via egna agenter i 18 asiatiska marknader. Växer med medelklassen. Tråkigt men lönsamt.", "en": "Sells life insurance through its own agents in 18 Asian markets. Grows with the middle class. Boring but profitable."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Medel", "en": "Medium"}, "growth": {"sv": "Stabil", "en": "Steady"}, "debt": {"sv": "Låg", "en": "Low"}},
-    "stock": 2.35, "index": 1.52,
-    "story": {"sv": "Fortsatte växa i jämn takt när fler i Asien köpte försäkringar. Aktien mer än fördubblades.", "en": "Kept growing at an even pace as more people in Asia bought insurance. The stock more than doubled."},
-    "lesson": {"title": {"sv": "Tråkigt kan slå spännande", "en": "Boring can beat exciting"}, "text": {"sv": "Stadig tillväxt år efter år, utan dramatik. Ränta-på-ränta gör jobbet.", "en": "Steady growth year after year, with no drama. Compounding does the work."}},
-    "micro": {
-      "q": {"sv": "Omsättningen växer 10 % per år i fem år. Ungefär hur mycket större är bolaget efter fem år?", "en": "Revenue grows 10 % a year for five years. Roughly how much bigger is the company after five years?"},
-      "options": [{"sv": "50 % större", "en": "50 % bigger"}, {"sv": "61 % större", "en": "61 % bigger"}, {"sv": "100 % större", "en": "100 % bigger"}],
-      "correct": 1,
-      "explain": {"sv": "Tillväxten bygger på sig själv: 1,1 × 1,1 × 1,1 × 1,1 × 1,1 ≈ 1,61.", "en": "Growth compounds: 1.1 × 1.1 × 1.1 × 1.1 × 1.1 ≈ 1.61."}
-    }
+  "desc": {
+   "sv": "Driver Kinas största chattapp med över 600 miljoner användare. Tjänar pengar på mobilspel och har just börjat låta folk betala direkt i appen.",
+   "en": "Runs China's biggest chat app, with over 600 million users. Makes money from mobile games and has just started letting people pay inside the app."
   },
-  {
-    "id": "evolution", "name": "Evolution", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "Stockholm · OMXS30", "en": "Stockholm · OMXS30"},
-    "title": {"sv": "Ett litet bolag som filmar kortspel live", "en": "A small company that films card games live"},
-    "desc": {"sv": "Sänder blackjack och roulette med riktiga croupierer till nätkasinon. Liten aktie, få analytiker följer den. Växer snabbt med hög marginal.", "en": "Streams blackjack and roulette with real dealers to online casinos. A small stock that few analysts follow. Growing fast with high margins."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Dyr", "en": "Expensive"}, "growth": {"sv": "Mycket snabb", "en": "Very fast"}, "debt": {"sv": "Ingen", "en": "None"}},
-    "stock": 14.4, "index": 1.60,
-    "story": {"sv": "Blev världsledande inom livekasino och lönsamheten exploderade. Aktien steg ungefär 14 gånger på fem år.", "en": "It became the world leader in live casino and profits exploded. The stock rose about 14 times in five years."},
-    "lesson": {"title": {"sv": "Vinnare är sällsynta men enorma", "en": "Winners are rare but huge"}, "text": {"sv": "Några få aktier står för det mesta av ett index avkastning. De är svåra att hitta i förväg, men en indexfond äger dem alltid.", "en": "A handful of stocks account for most of an index's return. They are hard to find in advance, but an index fund always owns them."}},
-    "micro": {
-      "q": {"sv": "Två bolag har samma P/E. A växer 30 % per år, B växer 2 % per år. Vilket ser billigast ut i förhållande till tillväxten?", "en": "Two companies have the same P/E. A grows 30 % a year, B grows 2 % a year. Which looks cheaper relative to its growth?"},
-      "options": [{"sv": "A", "en": "A"}, {"sv": "B", "en": "B"}, {"sv": "Lika billiga", "en": "Equally cheap"}],
-      "correct": 0,
-      "explain": {"sv": "Samma pris för vinsten, men A:s vinst väntas växa mycket snabbare. P/E säger mest tillsammans med tillväxten.", "en": "Same price for the profit, but A's profit is expected to grow much faster. P/E says most when read together with growth."}
-    }
+  "figures": {
+   "fy": "2015",
+   "pe": 37.7,
+   "growth": 30.0,
+   "debt": null,
+   "debt_note": {
+    "sv": "Tencent hade mer pengar på kontot än lån (nettokassa på 19 miljarder yuan).",
+    "en": "Tencent had more cash in the bank than debt (net cash of 19 billion yuan)."
+   },
+   "src": [
+    "https://prnewswire.com/news-releases/tencent-announces-2015-fourth-quarter-and-annual-results-300237636.html"
+   ],
+   "approx": [
+    "pe"
+   ]
   },
-  {
-    "id": "hm", "name": "H&M", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "Stockholm · OMXS30", "en": "Stockholm · OMXS30"},
-    "title": {"sv": "Sveriges mest kända klädkedja", "en": "Sweden's best-known clothing chain"},
-    "desc": {"sv": "Tusentals butiker i över 60 länder. Har varit en av börsens största vinnare i decennier. Nätförsäljningen växer, men långsammare än konkurrenternas.", "en": "Thousands of stores in more than 60 countries. One of the stock market's biggest winners for decades. Online sales are growing, but more slowly than rivals'."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Medel", "en": "Medium"}, "growth": {"sv": "Avtagande", "en": "Slowing"}, "debt": {"sv": "Låg", "en": "Low"}},
-    "stock": 0.73, "index": 1.60,
-    "story": {"sv": "Nätkonkurrens och stora osålda lager pressade lönsamheten. Även med utdelningar tappade aktien ungefär en fjärdedel, medan indexfonden steg 60 %.", "en": "Online competition and large unsold inventories squeezed profits. Even with dividends the stock lost about a quarter, while the index fund rose 60 %."},
-    "lesson": {"title": {"sv": "Gårdagens vinnare är inte morgondagens", "en": "Yesterday's winner is not tomorrow's"}, "text": {"sv": "Ett känt varumärke säger lite om framtida avkastning. Det som redan är känt är redan inprisat.", "en": "A famous brand says little about future returns. What everyone already knows is already in the price."}},
-    "micro": {
-      "q": {"sv": "Ett välkänt bolag har växt i decennier, men tillväxten börjar avta. Vad händer ofta med aktien?", "en": "A famous company has grown for decades, but growth is starting to slow. What often happens to the stock?"},
-      "options": [{"sv": "Den sjunker om marknaden räknat med fortsatt hög tillväxt", "en": "It falls if the market had counted on continued high growth"}, {"sv": "Den stiger eftersom varumärket är känt", "en": "It rises because the brand is famous"}, {"sv": "Ingenting, tillväxt påverkar inte aktiekursen", "en": "Nothing, growth does not affect the share price"}],
-      "correct": 0,
-      "explain": {"sv": "Priset speglar förväntningar. När tillväxten blir lägre än väntat faller aktien, hur känt bolaget än är.", "en": "The price reflects expectations. When growth comes in below what was expected the stock falls, however famous the company."}
-    }
+  "clues": {
+   "debt": {
+    "sv": "Mer pengar än lån",
+    "en": "More cash than debt"
+   }
   },
-  {
-    "id": "evergrande", "name": "Evergrande", "when": {"sv": "jan 2017", "en": "Jan 2017"}, "years": 5,
-    "market": {"sv": "Hongkong · Hang Seng", "en": "Hong Kong · Hang Seng"},
-    "title": {"sv": "Kinas snabbast växande bostadsbyggare", "en": "China's fastest-growing home builder"},
-    "desc": {"sv": "Bygger lägenheter i hundratals kinesiska städer. Försäljningen har ökat kraftigt varje år. Finansierar tillväxten med lån och förskott från köpare.", "en": "Builds apartments in hundreds of Chinese cities. Sales have grown sharply every year. Funds its growth with loans and with advance payments from buyers."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Billig", "en": "Cheap"}, "growth": {"sv": "Mycket snabb", "en": "Very fast"}, "debt": {"sv": "Extremt hög", "en": "Extremely high"}},
-    "stock": 0.33, "index": 1.23, "approx": true,
-    "story": {"sv": "Aktien rusade först 2017, men skulderna blev för stora. 2021 kunde bolaget inte betala sina lån och aktien förlorade större delen av värdet.", "en": "The stock soared in 2017, but the debt grew too large. In 2021 the company could not pay its loans, and the stock lost most of its value."},
-    "lesson": {"title": {"sv": "Skuld förstärker åt båda hållen", "en": "Debt amplifies both ways"}, "text": {"sv": "Lån gör att tillväxten går snabbare när det går bra, men kan knäcka bolaget när det vänder. Titta alltid på skulden.", "en": "Borrowing makes growth faster when things go well, but can break the company when they turn. Always look at the debt."}},
-    "micro": {
-      "q": {"sv": "Bolag A har nettoskuld/EBITDA 6, bolag B har 0,5. Vilket är mest sårbart om försäljningen faller?", "en": "Company A has net debt/EBITDA of 6, company B 0.5. Which is more vulnerable if sales fall?"},
-      "options": [{"sv": "A", "en": "A"}, {"sv": "B", "en": "B"}, {"sv": "Lika sårbara", "en": "Equally vulnerable"}],
-      "correct": 0,
-      "explain": {"sv": "A har skulder motsvarande sex års rörelseresultat. Faller resultatet kan räntor och amorteringar bli omöjliga att betala.", "en": "A owes about six years of operating profit. If profit falls, interest and repayments can become impossible to pay."}
-    }
+  "stock": 3.89,
+  "index": 1.52,
+  "story": {
+   "sv": "Betalningarna i appen och spelen fortsatte växa. Aktien nästan fyrdubblades, medan indexfonden steg ungefär hälften.",
+   "en": "Payments in the app and the games kept growing. The stock almost quadrupled, while the index fund rose about half."
   },
-  {
-    "id": "ge", "name": "General Electric", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "USA · S&P 500", "en": "USA · S&P 500"},
-    "title": {"sv": "Ett 120 år gammalt industrikonglomerat", "en": "A 120-year-old industrial conglomerate"},
-    "desc": {"sv": "Gör jetmotorer, kraftverk och medicinteknik. En av de mest ägda aktierna i USA. Betalar stabil utdelning.", "en": "Makes jet engines, power plants and medical equipment. One of the most widely held stocks in the US. Pays a steady dividend."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Medel", "en": "Medium"}, "growth": {"sv": "Låg", "en": "Low"}, "debt": {"sv": "Hög", "en": "High"}},
-    "stock": 0.39, "index": 2.03,
-    "story": {"sv": "Kraftverksaffären kollapsade, redovisningen granskades och utdelningen sänktes kraftigt. Även med utdelningar förlorade ägarna ungefär 60 %.", "en": "The power business collapsed, the accounting came under scrutiny and the dividend was slashed. Even with dividends, owners lost about 60 %."},
-    "lesson": {"title": {"sv": "Storlek är inte säkerhet", "en": "Size is not safety"}, "text": {"sv": "Även jättar som \"alla äger\" kan förlora mycket. Komplexa bolag med hög skuld är svåra att genomskåda.", "en": "Even giants that \"everyone owns\" can lose a lot. Complex companies with high debt are hard to see through."}},
-    "micro": {
-      "q": {"sv": "Nettoskuld/EBITDA på 3 betyder ungefär att …", "en": "Net debt/EBITDA of 3 roughly means that …"},
-      "options": [{"sv": "det skulle ta cirka 3 års rörelseresultat att betala skulden", "en": "it would take about 3 years of operating profit to pay off the debt"}, {"sv": "bolaget har 3 gånger så mycket kassa som skuld", "en": "the company has 3 times as much cash as debt"}, {"sv": "skulden har tredubblats", "en": "the debt has tripled"}],
-      "correct": 0,
-      "explain": {"sv": "Nettoskuld är lån minus kassa. EBITDA är rörelseresultat före avskrivningar. Kvoten visar hur många års resultat skulden motsvarar.", "en": "Net debt is loans minus cash. EBITDA is operating profit before depreciation. The ratio shows how many years of profit the debt equals."}
-    }
+  "lesson": {
+   "title": {
+    "sv": "Dyrt kan vara rätt pris",
+    "en": "Expensive can be the right price"
+   },
+   "text": {
+    "sv": "Ett högt P/E betyder att du betalar mycket för dagens vinst, eftersom marknaden väntar sig att vinsten växer snabbt. Det lönar sig bara om vinsten verkligen växer, och här gjorde den det.",
+    "en": "A high P/E means you pay a lot for today's profit, because the market expects the profit to grow fast. It only pays off if the profit really does grow, and here it did."
+   }
   },
-  {
-    "id": "swedbank", "name": "Swedbank", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "Stockholm · OMXS30", "en": "Stockholm · OMXS30"},
-    "title": {"sv": "En stor svensk bank", "en": "A large Swedish bank"},
-    "desc": {"sv": "Bolån och sparande till miljontals svenskar och baltare. Mycket lönsam, ger hög utdelning, uppfattas som trygg.", "en": "Mortgages and savings for millions of Swedes and Balts. Very profitable, pays a high dividend, seen as safe."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Billig", "en": "Cheap"}, "growth": {"sv": "Låg", "en": "Low"}, "debt": {"sv": "Bank (hög per definition)", "en": "Bank (high by definition)"}},
-    "stock": 1.06, "index": 1.60,
-    "story": {"sv": "2019 avslöjades misstänkt penningtvätt i Baltikum. Böter, vd-byte och pausad utdelning följde. Med utdelningar tjänade ägarna bara 6 %.", "en": "In 2019 suspected money laundering in the Baltics came to light. Fines, a new CEO and a paused dividend followed. With dividends, owners gained only 6 %."},
-    "lesson": {"title": {"sv": "Risken i ett enskilt bolag går att sprida bort", "en": "Single-company risk can be spread away"}, "text": {"sv": "En skandal i ett bolag kan radera år av avkastning. Med många bolag i portföljen spelar en enskild skandal mindre roll.", "en": "One scandal can erase years of returns. With many companies in a portfolio, a single scandal matters less."}},
-    "micro": {
-      "q": {"sv": "Du äger aktier i en enda bank och en skandal slår till. Vad hade minskat skadan mest?", "en": "You own shares in a single bank and a scandal hits. What would have limited the damage most?"},
-      "options": [{"sv": "Att äga många bolag, t.ex. via en indexfond", "en": "Owning many companies, e.g. through an index fund"}, {"sv": "Att äga två banker i stället för en", "en": "Owning two banks instead of one"}, {"sv": "Att köpa och sälja oftare", "en": "Buying and selling more often"}],
-      "correct": 0,
-      "explain": {"sv": "Bred spridning gör att ett bolags problem bara blir en liten del av portföljen.", "en": "Broad diversification makes one company's problem only a small part of the portfolio."}
+  "micro": {
+   "q": {
+    "sv": "Bolag A har P/E 10 och bolag B har P/E 40. Av vilket väntar sig marknaden mest tillväxt?",
+    "en": "Company A has a P/E of 10 and company B a P/E of 40. Which does the market expect to grow faster?"
+   },
+   "options": [
+    {
+     "sv": "A",
+     "en": "A"
+    },
+    {
+     "sv": "B",
+     "en": "B"
+    },
+    {
+     "sv": "Lika mycket",
+     "en": "The same"
     }
-  },
-  {
-    "id": "boeing", "name": "Boeing", "when": {"sv": "jan 2016", "en": "Jan 2016"}, "years": 5,
-    "market": {"sv": "USA · S&P 500", "en": "USA · S&P 500"},
-    "title": {"sv": "En av två tillverkare av stora passagerarplan", "en": "One of two makers of large passenger jets"},
-    "desc": {"sv": "Duopol med Airbus. Orderboken räcker i många år. Köper tillbaka egna aktier i stor skala.", "en": "A duopoly with Airbus. The order book is full for years. Buys back its own shares on a large scale."},
-    "figures": {"pe": null, "pe_index": null, "growth": null, "growth_index": null, "debt": null},
-    "clues": {"pe": {"sv": "Medel", "en": "Medium"}, "growth": {"sv": "Stabil", "en": "Steady"}, "debt": {"sv": "Måttlig", "en": "Moderate"}},
-    "stock": 1.61, "index": 2.03,
-    "story": {"sv": "Aktien steg kraftigt fram till 2019. Sedan kom två 737 MAX-olyckor, flygförbud och pandemin. Slutade ändå upp, men efter index.", "en": "The stock rose strongly until 2019, then came two 737 MAX crashes, a grounding and the pandemic. It still ended up, but behind the index."},
-    "lesson": {"title": {"sv": "Att stiga är inte att slå index", "en": "Going up is not beating the index"}, "text": {"sv": "Med utdelningar steg aktien 61 %, men en indexfond fördubblades. Rätt jämförelse är alltid alternativet: index.", "en": "With dividends the stock rose 61 %, but an index fund doubled. The right comparison is always the alternative: the index."}},
-    "micro": {
-      "q": {"sv": "En aktie steg 61 % på fem år. Indexfonden steg 103 %. Slog aktien index?", "en": "A stock rose 61 % in five years. The index fund rose 103 %. Did the stock beat the index?"},
-      "options": [{"sv": "Ja, den steg ju", "en": "Yes, it went up"}, {"sv": "Nej", "en": "No"}, {"sv": "Går inte att säga", "en": "Can't tell"}],
-      "correct": 1,
-      "explain": {"sv": "Att slå index betyder att gå bättre än alternativet. Den som köpt indexfonden hade fått mer.", "en": "Beating the index means doing better than the alternative. Someone who bought the index fund would have had more."}
-    }
+   ],
+   "correct": 1,
+   "explain": {
+    "sv": "P/E 40 betyder att du betalar 40 års vinst. Det gör man bara om man tror att vinsten växer mycket snabbt.",
+    "en": "A P/E of 40 means you pay 40 years of profit. You only do that if you believe the profit will grow very fast."
+   }
   }
+ },
+ {
+  "id": "hsbc",
+  "name": "HSBC",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "Hongkong",
+   "en": "Hong Kong"
+  },
+  "title": {
+   "sv": "En av världens största banker, som delar ut mycket pengar",
+   "en": "One of the world's biggest banks, which pays out a lot of money"
+  },
+  "desc": {
+   "sv": "Stor bank med fokus på Asien. Stabil och välkänd. Varje år delar den ut över 6 % av aktiens pris till ägarna (det kallas utdelning). Många pensionärer i Hongkong äger aktien.",
+   "en": "A huge bank focused on Asia. Stable and well known. Each year it pays out over 6 % of the share price to its owners (this is called a dividend). Many retirees in Hong Kong own the stock."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 12.2,
+   "growth": -4.7,
+   "debt": null,
+   "debt_note": {
+    "sv": "Banker lånar pengar för att kunna låna ut dem, så ett skuldtal säger lite om risken.",
+    "en": "Banks borrow money in order to lend it out, so a debt figure says little about risk."
+   },
+   "src": [
+    "https://hsbc.com/-/files/hsbc/investors/results-and-announcements/stock-exchange-announcements/2016/february/hsbc-holdings-plc-annual-results-2015-media-release.pdf"
+   ],
+   "approx": [
+    "pe"
+   ]
+  },
+  "clues": {
+   "debt": {
+    "sv": "Bank",
+    "en": "Bank"
+   }
+  },
+  "stock": 0.86,
+  "index": 1.52,
+  "story": {
+   "sv": "Låga räntor gav banken mindre vinst, och 2020 bad den brittiska centralbanken HSBC att stoppa utdelningen. Aktien föll, och även med utdelningar förlorade ägarna ungefär 14 %.",
+   "en": "Low interest rates gave the bank less profit, and in 2020 the Bank of England asked HSBC to stop the dividend. The stock fell, and even with dividends the owners lost about 14 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Billigt kan vara billigt av en anledning",
+    "en": "Cheap can be cheap for a reason"
+   },
+   "text": {
+    "sv": "En låg prislapp och hög utdelning ser tryggt ut, men kan betyda att marknaden väntar sig svag utveckling. Utdelningar är inga garantier.",
+    "en": "A low price tag and a high dividend look safe, but can mean the market expects weak results. Dividends are not guaranteed."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett P/E på 20 betyder att …",
+    "en": "A P/E of 20 means that …"
+   },
+   "options": [
+    {
+     "sv": "aktien kostar 20 gånger bolagets årsvinst per aktie",
+     "en": "the share costs 20 times the company's yearly profit per share"
+    },
+    {
+     "sv": "aktien har stigit 20 % i år",
+     "en": "the share has risen 20 % this year"
+    },
+    {
+     "sv": "bolaget växer 20 % per år",
+     "en": "the company grows 20 % a year"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "P/E är priset delat med vinsten per aktie. Med P/E 20 skulle det ta 20 år av dagens vinst att tjäna ihop priset.",
+    "en": "P/E is the price divided by the profit per share. At a P/E of 20 it would take 20 years of today's profit to earn the price back."
+   }
+  }
+ },
+ {
+  "id": "netflix",
+  "name": "Netflix",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "En dvd-uthyrare som blivit tv-tjänst på nätet",
+   "en": "A DVD rental company turned online TV service"
+  },
+  "desc": {
+   "sv": "Har precis börjat sända i 130 nya länder. Lägger miljarder på egna serier och tjänar nästan ingenting. Många experter tycker att aktien är löjligt dyr.",
+   "en": "Has just started streaming in 130 new countries. Spends billions on its own shows and earns almost nothing. Many experts think the stock is absurdly expensive."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 392.7,
+   "growth": 23.2,
+   "debt": 6.4,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/1065280/000106528016000047/"
+   ]
+  },
+  "clues": {},
+  "stock": 4.75,
+  "index": 2.03,
+  "story": {
+   "sv": "Antalet kunder mer än tredubblades, och pandemin gav ett extra lyft. Aktien steg nästan fem gånger.",
+   "en": "The number of customers more than tripled, and the pandemic gave an extra boost. The stock rose almost five times."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Experterna kan ha fel åt båda hållen",
+    "en": "The experts can be wrong both ways"
+   },
+   "text": {
+    "sv": "När alla tycker att en aktie är för dyr kan de ha rätt, eller så missar de hur stor marknaden kan bli.",
+    "en": "When everyone thinks a stock is too expensive they may be right, or they may miss how big the market can become."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "En aktie har P/E 80 och stiger kraftigt de följande åren. Vad krävdes troligen?",
+    "en": "A stock has a P/E of 80 and rises sharply over the following years. What was most likely needed?"
+   },
+   "options": [
+    {
+     "sv": "Att vinsten växte snabbt, som marknaden hoppades",
+     "en": "That profits grew fast, as the market hoped"
+    },
+    {
+     "sv": "Att P/E sjönk till 10",
+     "en": "That the P/E fell to 10"
+    },
+    {
+     "sv": "Ingenting, högt P/E betyder alltid att aktien stiger",
+     "en": "Nothing, a high P/E always means the stock rises"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Ett högt P/E är ett vad på att vinsten växer. Kommer tillväxten kan aktien stiga. Uteblir den faller den ofta hårt.",
+    "en": "A high P/E is a bet that profits will grow. If the growth comes the stock can rise. If it doesn't, it often falls hard."
+   }
+  }
+ },
+ {
+  "id": "aia",
+  "name": "AIA",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "Hongkong",
+   "en": "Hong Kong"
+  },
+  "title": {
+   "sv": "Ett försäkringsbolag i hela Asien",
+   "en": "An insurance company across Asia"
+  },
+  "desc": {
+   "sv": "Säljer livförsäkringar via egna säljare i 18 länder och områden i Asien. Växer när fler får det bättre ställt. Tråkigt men lönsamt.",
+   "en": "Sells life insurance through its own salespeople in 18 countries and territories in Asia. Grows as more people become better off. Boring but profitable."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 21.9,
+   "growth": 3.5,
+   "debt": null,
+   "debt_note": {
+    "sv": "Försäkringsbolag fungerar annorlunda än vanliga bolag, så ett skuldtal säger lite om risken.",
+    "en": "Insurers work differently from ordinary companies, so a debt figure says little about risk."
+   },
+   "src": [
+    "https://aia.com.hk/en/about-aia/about-us/media-centre/press-releases/2016/aia-delivers-strong-growth-in-2015"
+   ],
+   "approx": [
+    "pe"
+   ],
+   "pe_remark": {
+    "sv": "Räknat på vinsten från den vanliga verksamheten, som bolaget själv redovisar.",
+    "en": "Based on the profit from the everyday business, as the company reports it."
+   }
+  },
+  "clues": {
+   "debt": {
+    "sv": "Försäkringsbolag",
+    "en": "Insurer"
+   }
+  },
+  "stock": 2.35,
+  "index": 1.52,
+  "story": {
+   "sv": "Bolaget fortsatte växa i jämn takt när fler människor i Asien tecknade försäkringar. Aktien mer än fördubblades.",
+   "en": "The company kept growing at an even pace as more people in Asia bought insurance. The stock more than doubled."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Tråkigt kan slå spännande",
+    "en": "Boring can beat exciting"
+   },
+   "text": {
+    "sv": "Jämn tillväxt år efter år, utan drama. Tillväxten bygger på tidigare tillväxt, och det gör jobbet.",
+    "en": "Steady growth year after year, with no drama. Growth builds on earlier growth, and that does the work."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Försäljningen växer 10 % per år i fem år. Ungefär hur mycket större är bolaget efter fem år?",
+    "en": "Sales grow 10 % a year for five years. Roughly how much bigger is the company after five years?"
+   },
+   "options": [
+    {
+     "sv": "50 % större",
+     "en": "50 % bigger"
+    },
+    {
+     "sv": "61 % större",
+     "en": "61 % bigger"
+    },
+    {
+     "sv": "100 % större",
+     "en": "100 % bigger"
+    }
+   ],
+   "correct": 1,
+   "explain": {
+    "sv": "Tillväxten bygger på sig själv: 1,1 × 1,1 × 1,1 × 1,1 × 1,1 ≈ 1,61.",
+    "en": "Growth builds on itself: 1.1 × 1.1 × 1.1 × 1.1 × 1.1 ≈ 1.61."
+   }
+  }
+ },
+ {
+  "id": "evolution",
+  "name": "Evolution",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "Stockholm",
+   "en": "Stockholm"
+  },
+  "title": {
+   "sv": "Ett litet bolag som filmar kortspel live",
+   "en": "A small company that films card games live"
+  },
+  "desc": {
+   "sv": "Sänder blackjack och roulette med riktiga croupierer till nätcasinon. En liten aktie som få experter följer. Växer snabbt och tjänar bra.",
+   "en": "Streams blackjack and roulette with real dealers to online casinos. A small stock that few experts follow. Grows fast and earns well."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 58.5,
+   "growth": 57.0,
+   "debt": null,
+   "debt_note": {
+    "sv": "Bolaget hade i princip inga lån.",
+    "en": "The company had practically no loans."
+   },
+   "src": [
+    "https://www.globenewswire.com/news-release/2016/02/16/810753/0/en/Evolution-Gaming-Year-end-Report-2015.html"
+   ],
+   "approx": [
+    "pe"
+   ]
+  },
+  "clues": {
+   "debt": {
+    "sv": "Inga lån",
+    "en": "No debt"
+   }
+  },
+  "stock": 14.44,
+  "index": 1.6,
+  "story": {
+   "sv": "Bolaget blev störst i världen på sitt område, och vinsten exploderade. Aktien steg ungefär 14 gånger på fem år.",
+   "en": "The company became the biggest in the world in its field, and profits exploded. The stock rose about 14 times in five years."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Vinnare är sällsynta men enorma",
+    "en": "Winners are rare but huge"
+   },
+   "text": {
+    "sv": "Några få aktier står för det mesta av vad en stor korg med bolag har tjänat. De är svåra att hitta i förväg, men en indexfond äger dem alltid.",
+    "en": "A handful of stocks account for most of what a big basket of companies has earned. They are hard to find in advance, but an index fund always owns them."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Två bolag har samma P/E. A växer 30 % per år, B växer 2 % per år. Vilket är billigast i förhållande till hur snabbt det växer?",
+    "en": "Two companies have the same P/E. A grows 30 % a year, B grows 2 % a year. Which is cheaper compared with how fast it grows?"
+   },
+   "options": [
+    {
+     "sv": "A",
+     "en": "A"
+    },
+    {
+     "sv": "B",
+     "en": "B"
+    },
+    {
+     "sv": "Lika billiga",
+     "en": "Equally cheap"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Samma pris för vinsten, men A:s vinst växer mycket snabbare. P/E säger mest när man läser det tillsammans med tillväxten.",
+    "en": "Same price for the profit, but A's profit grows much faster. P/E says most when you read it together with growth."
+   }
+  }
+ },
+ {
+  "id": "hm",
+  "name": "H&M",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "Stockholm",
+   "en": "Stockholm"
+  },
+  "title": {
+   "sv": "Sveriges mest kända klädkedja",
+   "en": "Sweden's best-known clothing chain"
+  },
+  "desc": {
+   "sv": "Tusentals butiker i över 60 länder. Har varit en stor vinnare på börsen i många år. Näthandeln växer, men långsammare än hos konkurrenterna.",
+   "en": "Thousands of stores in more than 60 countries. A big winner on the stock market for many years. Online sales are growing, but more slowly than at rivals."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 22.7,
+   "growth": 19.4,
+   "debt": null,
+   "debt_note": {
+    "sv": "Bolaget hade mycket små lån jämfört med vad det tjänar.",
+    "en": "The company had very small loans compared with what it earns."
+   },
+   "src": [
+    "https://hmgroup.com/wp-content/uploads/2021/01/1642932.pdf"
+   ]
+  },
+  "clues": {
+   "debt": {
+    "sv": "Mycket små lån",
+    "en": "Very small loans"
+   }
+  },
+  "stock": 0.73,
+  "index": 1.6,
+  "story": {
+   "sv": "Konkurrens från nätbutiker och stora lager av osålda kläder drog ner vinsten. Även med utdelningar tappade aktien ungefär en fjärdedel, medan indexfonden steg 60 %.",
+   "en": "Competition from online shops and large stocks of unsold clothes pushed profits down. Even with dividends the stock lost about a quarter, while the index fund rose 60 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Gårdagens vinnare är inte morgondagens",
+    "en": "Yesterday's winner is not tomorrow's"
+   },
+   "text": {
+    "sv": "Ett känt varumärke säger lite om framtiden. Det som alla redan vet finns redan i priset.",
+    "en": "A famous brand says little about the future. What everyone already knows is already in the price."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett välkänt bolag har vuxit i många år, men tillväxten börjar sakta ner. Vad händer ofta med aktien?",
+    "en": "A famous company has grown for many years, but growth is starting to slow. What often happens to the stock?"
+   },
+   "options": [
+    {
+     "sv": "Den faller om marknaden räknat med fortsatt snabb tillväxt",
+     "en": "It falls if the market had counted on continued fast growth"
+    },
+    {
+     "sv": "Den stiger eftersom varumärket är känt",
+     "en": "It rises because the brand is famous"
+    },
+    {
+     "sv": "Ingenting, tillväxten påverkar inte aktiepriset",
+     "en": "Nothing, growth does not affect the share price"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Priset speglar vad folk förväntar sig. När tillväxten blir lägre än väntat faller aktien, hur känt bolaget än är.",
+    "en": "The price reflects what people expect. When growth comes in below expectations the stock falls, however famous the company is."
+   }
+  }
+ },
+ {
+  "id": "evergrande",
+  "name": "Evergrande",
+  "when": {
+   "sv": "jan 2017",
+   "en": "Jan 2017"
+  },
+  "years": 5,
+  "market": {
+   "sv": "Hongkong",
+   "en": "Hong Kong"
+  },
+  "title": {
+   "sv": "Kinas snabbast växande husbyggare",
+   "en": "China's fastest-growing home builder"
+  },
+  "desc": {
+   "sv": "Bygger lägenheter i hundratals kinesiska städer. Försäljningen har ökat kraftigt varje år. Bolaget betalar för tillväxten med lånade pengar och med förskott från köpare.",
+   "en": "Builds apartments in hundreds of Chinese cities. Sales have grown sharply every year. The company pays for its growth with borrowed money and advance payments from buyers."
+  },
+  "figures": {
+   "fy": "2016",
+   "pe": 13.8,
+   "growth": 58.8,
+   "debt": null,
+   "debt_note": {
+    "sv": "Bolaget hade enorma lån. Vi har ingen säker siffra, men det var ett av världens mest skuldsatta företag.",
+    "en": "The company had enormous loans. We have no reliable figure, but it was one of the most indebted companies in the world."
+   },
+   "src": [
+    "https://doc.irasia.com/listco/hk/evergrande/annual/2016/res.pdf"
+   ],
+   "approx": [
+    "pe"
+   ]
+  },
+  "clues": {
+   "debt": {
+    "sv": "Enorma lån",
+    "en": "Enormous loans"
+   }
+  },
+  "stock": 0.33,
+  "index": 1.23,
+  "story": {
+   "sv": "Aktien rusade först, men skulderna blev för stora. 2021 kunde bolaget inte betala sina lån, och aktien förlorade större delen av sitt värde.",
+   "en": "The stock soared at first, but the debts grew too large. In 2021 the company could not pay its loans, and the stock lost most of its value."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Lån förstärker åt båda hållen",
+    "en": "Loans amplify in both directions"
+   },
+   "text": {
+    "sv": "Lånade pengar gör att ett bolag kan växa snabbare när det går bra, men kan knäcka det när det vänder. Titta alltid på lånen.",
+    "en": "Borrowed money lets a company grow faster when things go well, but can break it when they turn. Always look at the loans."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Bolag A har lån som motsvarar 6 års vinst. Bolag B har lån som motsvarar ett halvt års vinst. Vilket klarar ett dåligt år sämst?",
+    "en": "Company A has loans equal to 6 years of profit. Company B has loans equal to half a year of profit. Which handles a bad year worse?"
+   },
+   "options": [
+    {
+     "sv": "A",
+     "en": "A"
+    },
+    {
+     "sv": "B",
+     "en": "B"
+    },
+    {
+     "sv": "Lika dåligt",
+     "en": "Equally badly"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "A har mycket mer att betala tillbaka i förhållande till vad bolaget tjänar. Faller vinsten kan det bli omöjligt att klara lånen.",
+    "en": "A has much more to pay back compared with what it earns. If profit falls, the loans can become impossible to manage."
+   }
+  },
+  "approx": true
+ },
+ {
+  "id": "ge",
+  "name": "General Electric",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "En över 120 år gammal jättekoncern",
+   "en": "A giant company over 120 years old"
+  },
+  "desc": {
+   "sv": "Tillverkar jetmotorer, kraftverk och sjukvårdsutrustning. En av USA:s mest ägda aktier. Delar ut pengar regelbundet till ägarna.",
+   "en": "Makes jet engines, power plants and medical equipment. One of the most widely owned stocks in the US. Pays out money regularly to its owners."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": null,
+   "growth": 0.2,
+   "debt": null,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/40545/000004054516000145/"
+   ],
+   "pe_note": {
+    "sv": "Bolaget gick med förlust 2015, så P/E går inte att räkna ut.",
+    "en": "The company made a loss in 2015, so a P/E can't be worked out."
+   },
+   "debt_note": {
+    "sv": "GE hade en egen bank-del, så ett vanligt skuldtal säger lite om risken.",
+    "en": "GE had a banking arm of its own, so an ordinary debt figure says little about risk."
+   }
+  },
+  "clues": {
+   "pe": {
+    "sv": "Förlust",
+    "en": "Loss"
+   },
+   "debt": {
+    "sv": "Bank-del",
+    "en": "Banking arm"
+   }
+  },
+  "stock": 0.39,
+  "index": 2.03,
+  "story": {
+   "sv": "Affären med kraftverk gick dåligt, bokföringen granskades och utdelningen sänktes kraftigt. Även med utdelningar förlorade ägarna ungefär 60 %.",
+   "en": "The power plant business went badly, the accounts were investigated and the dividend was slashed. Even with dividends the owners lost about 60 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Storlek är ingen trygghet",
+    "en": "Size is no safety"
+   },
+   "text": {
+    "sv": "Även jättar som \"alla äger\" kan förlora mycket. Stora, krångliga bolag med mycket lån är svåra att se in i.",
+    "en": "Even giants that \"everyone owns\" can lose a lot. Large, complicated companies with a lot of loans are hard to see into."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett bolags lån är tre gånger så stora som årsvinsten. Vad betyder det?",
+    "en": "A company's loans are three times its yearly profit. What does that mean?"
+   },
+   "options": [
+    {
+     "sv": "Det skulle ta ungefär 3 års vinst att betala tillbaka lånen",
+     "en": "It would take about 3 years of profit to pay back the loans"
+    },
+    {
+     "sv": "Bolaget har tre gånger så mycket pengar som lån",
+     "en": "The company has three times as much cash as debt"
+    },
+    {
+     "sv": "Lånen har tredubblats",
+     "en": "The loans have tripled"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Måttet visar hur många års vinst lånen motsvarar. Ju fler år, desto mer har bolaget lånat.",
+    "en": "The figure shows how many years of profit the loans equal. The more years, the more the company has borrowed."
+   }
+  }
+ },
+ {
+  "id": "swedbank",
+  "name": "Swedbank",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "Stockholm",
+   "en": "Stockholm"
+  },
+  "title": {
+   "sv": "En stor svensk bank",
+   "en": "A large Swedish bank"
+  },
+  "desc": {
+   "sv": "Bolån och sparande åt miljontals svenskar och balter. Mycket lönsam, delar ut mycket pengar och uppfattas som trygg.",
+   "en": "Home loans and savings for millions of Swedes and Balts. Very profitable, pays out a lot of money and is seen as safe."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 12.9,
+   "growth": -4.3,
+   "debt": null,
+   "debt_note": {
+    "sv": "Banker lånar pengar för att kunna låna ut dem, så ett skuldtal säger lite om risken.",
+    "en": "Banks borrow money in order to lend it out, so a debt figure says little about risk."
+   },
+   "src": [
+    "https://financialreports.eu/filings/2743240/content"
+   ]
+  },
+  "clues": {
+   "debt": {
+    "sv": "Bank",
+    "en": "Bank"
+   }
+  },
+  "stock": 1.06,
+  "index": 1.6,
+  "story": {
+   "sv": "2019 visade det sig att banken misstänktes ha hjälpt till att flytta olagliga pengar i Baltikum. Det gav stora böter, chefen fick lämna och utdelningen pausades. Med utdelningar tjänade ägarna bara 6 %.",
+   "en": "In 2019 it emerged that the bank was suspected of helping to move illegal money in the Baltics. It led to big fines, the CEO had to leave and the dividend was paused. With dividends the owners gained only 6 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Risken i ett enda bolag går att sprida ut",
+    "en": "The risk in a single company can be spread out"
+   },
+   "text": {
+    "sv": "En skandal i ett bolag kan radera flera års avkastning. Äger du många bolag spelar en enskild skandal mindre roll.",
+    "en": "One scandal in one company can wipe out years of returns. If you own many companies, a single scandal matters less."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Du äger aktier i en enda bank och en skandal slår till. Vad hade minskat skadan mest?",
+    "en": "You own shares in a single bank and a scandal hits. What would have limited the damage most?"
+   },
+   "options": [
+    {
+     "sv": "Att äga många bolag, till exempel via en indexfond",
+     "en": "Owning many companies, for example through an index fund"
+    },
+    {
+     "sv": "Att äga två banker i stället för en",
+     "en": "Owning two banks instead of one"
+    },
+    {
+     "sv": "Att köpa och sälja oftare",
+     "en": "Buying and selling more often"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "När du äger många bolag blir ett enskilt bolags problem bara en liten del av det du äger.",
+    "en": "When you own many companies, one company's problem is only a small part of what you own."
+   }
+  }
+ },
+ {
+  "id": "boeing",
+  "name": "Boeing",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "En av bara två tillverkare av stora passagerarplan",
+   "en": "One of only two makers of large passenger planes"
+  },
+  "desc": {
+   "sv": "Bara två företag i världen tillverkar stora passagerarplan: Boeing och Airbus. Flygbolagen har redan beställt plan för många år framåt.",
+   "en": "Only two companies in the world make large passenger planes: Boeing and Airbus. The airlines have already ordered planes for many years ahead."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 18.9,
+   "growth": 5.9,
+   "debt": 1.1,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/12927/000001292716000099/"
+   ]
+  },
+  "clues": {},
+  "stock": 1.61,
+  "index": 2.03,
+  "story": {
+   "sv": "Aktien steg kraftigt fram till 2019. Sedan kom två flygolyckor med planet 737 MAX, flygförbud och pandemin. Aktien slutade ändå högre, men efter indexfonden.",
+   "en": "The stock rose strongly until 2019. Then came two crashes of the 737 MAX plane, a flying ban and the pandemic. The stock still ended higher, but behind the index fund."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Att stiga är inte samma sak som att slå index",
+    "en": "Going up is not the same as beating the index"
+   },
+   "text": {
+    "sv": "Med utdelningar steg aktien 61 %, men en indexfond fördubblades. Rätt jämförelse är alltid alternativet: indexfonden.",
+    "en": "With dividends the stock rose 61 %, but an index fund doubled. The right comparison is always the alternative: the index fund."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "En aktie steg 61 % på fem år. Indexfonden steg 103 %. Slog aktien index?",
+    "en": "A stock rose 61 % in five years. The index fund rose 103 %. Did the stock beat the index?"
+   },
+   "options": [
+    {
+     "sv": "Ja, den steg ju",
+     "en": "Yes, it went up"
+    },
+    {
+     "sv": "Nej",
+     "en": "No"
+    },
+    {
+     "sv": "Går inte att säga",
+     "en": "Can't tell"
+    }
+   ],
+   "correct": 1,
+   "explain": {
+    "sv": "Att slå index betyder att gå bättre än alternativet. Den som köpt indexfonden hade fått mer.",
+    "en": "Beating the index means doing better than the alternative. Someone who bought the index fund would have had more."
+   }
+  }
+ },
+ {
+  "id": "micron",
+  "name": "Micron",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Ett bolag som gör minnet i telefoner och datorer",
+   "en": "A company that makes the memory in phones and computers"
+  },
+  "desc": {
+   "sv": "Tillverkar minneschips som finns i nästan alla telefoner, datorer och servrar. Priset på chipsen svänger mycket. Just nu är priserna låga, och aktien är mycket billig.",
+   "en": "Makes memory chips found in almost every phone, computer and server. The price of the chips swings a lot. Right now prices are low, and the stock is very cheap."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 5.8,
+   "growth": -1.0,
+   "debt": 1.3,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/723125/000072312515000112/"
+   ]
+  },
+  "clues": {},
+  "stock": 5.17,
+  "index": 2.03,
+  "story": {
+   "sv": "Efterfrågan på minne exploderade när datacenter och mobiler behövde allt mer av det. Priserna steg och vinsten flerdubblades. Aktien steg drygt fem gånger.",
+   "en": "Demand for memory exploded as data centres and phones needed more and more of it. Prices rose and profits multiplied. The stock rose more than five times."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Ett lågt pris kan vara en möjlighet, eller en varning",
+    "en": "A low price can be an opportunity, or a warning"
+   },
+   "text": {
+    "sv": "Ett mycket lågt P/E betyder att marknaden är pessimistisk. Ofta har den rätt, men ibland har den fel, och då kan aktien stiga rejält.",
+    "en": "A very low P/E means the market is pessimistic. Often it's right, but sometimes it is wrong, and then the stock can rise a lot."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett bolag har P/E 6. Vad säger det om vad marknaden väntar sig?",
+    "en": "A company has a P/E of 6. What does that say about what the market expects?"
+   },
+   "options": [
+    {
+     "sv": "Att vinsten inte kommer att växa, eller att något oroar",
+     "en": "That profit won't grow, or that something is worrying"
+    },
+    {
+     "sv": "Att vinsten kommer att växa väldigt mycket",
+     "en": "That profit will grow a great deal"
+    },
+    {
+     "sv": "Ingenting alls",
+     "en": "Nothing at all"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Man betalar lite för varje krona vinst när man tror att vinsten är på väg ner eller är osäker.",
+    "en": "People pay little for each krona of profit when they believe profit is heading down or is uncertain."
+   }
+  }
+ },
+ {
+  "id": "exxon",
+  "name": "ExxonMobil",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Ett av världens största oljebolag",
+   "en": "One of the world's biggest oil companies"
+  },
+  "desc": {
+   "sv": "Pumpar upp och säljer olja och gas över hela världen. Stort, välkänt och delar ut pengar till ägarna varje kvartal. Just nu har oljepriset rasat.",
+   "en": "Pumps up and sells oil and gas all over the world. Big, well known and pays out money to its owners every quarter. Right now the oil price has collapsed."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 20.1,
+   "growth": -34.2,
+   "debt": 1.0,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/34088/000003408816000065/"
+   ]
+  },
+  "clues": {},
+  "stock": 0.68,
+  "index": 2.03,
+  "story": {
+   "sv": "Oljepriset föll ännu mer när pandemin 2020 stoppade resandet. Aktien föll nästan hälften. Även med utdelningar förlorade ägarna ungefär en tredjedel, medan indexfonden mer än fördubblades.",
+   "en": "The oil price fell even further when the pandemic stopped travel in 2020. The stock fell almost by half. Even with dividends the owners lost about a third, while the index fund more than doubled."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Stort och stabilt är inte samma sak som tryggt",
+    "en": "Big and steady is not the same as safe"
+   },
+   "text": {
+    "sv": "Bolag som säljer något vars pris svänger, som olja, följer priset upp och ner. Utdelningen kan inte skydda dig om priset faller.",
+    "en": "Companies that sell something whose price swings, like oil, follow the price up and down. The dividend can't protect you if the price falls."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett oljebolags försäljning föll 34 % på ett år. Vad är den troligaste orsaken?",
+    "en": "An oil company's sales fell 34 % in a year. What is the most likely reason?"
+   },
+   "options": [
+    {
+     "sv": "Oljepriset föll",
+     "en": "The oil price fell"
+    },
+    {
+     "sv": "Bolaget fick fler kunder",
+     "en": "The company got more customers"
+    },
+    {
+     "sv": "Bolaget lånade mindre pengar",
+     "en": "The company borrowed less money"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Bolag som säljer råvaror tjänar mer när priset är högt och mindre när det är lågt.",
+    "en": "Companies that sell raw materials earn more when the price is high and less when it is low."
+   }
+  }
+ },
+ {
+  "id": "visa",
+  "name": "Visa",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Bolaget bakom kortbetalningarna",
+   "en": "The company behind card payments"
+  },
+  "desc": {
+   "sv": "Tar en liten avgift varje gång någon i världen betalar med kort. Har inga lån och tjänar stora pengar på varje betalning. Aktien kostar rätt mycket.",
+   "en": "Takes a small fee every time someone in the world pays by card. Has no loans and earns a lot on each payment. The stock costs quite a lot."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 29.3,
+   "growth": 9.3,
+   "debt": 0.0,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/1403161/000140316115000013/"
+   ]
+  },
+  "clues": {},
+  "stock": 2.98,
+  "index": 2.03,
+  "story": {
+   "sv": "Allt fler betalade med kort och mobil, och bolaget växte stadigt år efter år. Aktien nästan tredubblades och slog indexfonden.",
+   "en": "More and more people paid by card and phone, and the company grew steadily year after year. The stock almost tripled and beat the index fund."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Dyrt kan vara värt det för ett bra bolag",
+    "en": "Expensive can be worth it for a great company"
+   },
+   "text": {
+    "sv": "Ett bolag som växer stadigt, tjänar mycket och inte behöver låna kan förtjäna ett högt pris. Men det är bara i efterhand man vet.",
+    "en": "A company that grows steadily, earns a lot and doesn't need to borrow can deserve a high price. But you only know that afterwards."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett bolag tjänar 10 kr per aktie, och aktien kostar 300 kr. Hur många års vinst betalar du?",
+    "en": "A company earns 10 kr per share, and the share costs 300 kr. How many years of profit do you pay?"
+   },
+   "options": [
+    {
+     "sv": "3 år",
+     "en": "3 years"
+    },
+    {
+     "sv": "30 år",
+     "en": "30 years"
+    },
+    {
+     "sv": "300 år",
+     "en": "300 years"
+    }
+   ],
+   "correct": 1,
+   "explain": {
+    "sv": "300 delat med 10 är 30. Det är bolagets P/E.",
+    "en": "300 divided by 10 is 30. That is the company's P/E."
+   }
+  }
+ },
+ {
+  "id": "att",
+  "name": "AT&T",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Ett amerikanskt telekombolag med stora lån",
+   "en": "An American telecom company with big loans"
+  },
+  "desc": {
+   "sv": "Säljer telefon, internet och tv till tiotals miljoner kunder. Har precis köpt ett tv-bolag och lånat mycket för det. Delar ut över 5 % av aktiens pris varje år.",
+   "en": "Sells phone, internet and TV to tens of millions of customers. Has just bought a TV company and borrowed a lot to do it. Pays out over 5 % of the share price every year."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 14.5,
+   "growth": 10.8,
+   "debt": 2.7,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/732717/000073271716000147/"
+   ]
+  },
+  "clues": {},
+  "stock": 1.25,
+  "index": 2.03,
+  "story": {
+   "sv": "Lånen tyngde, tillväxten uteblev och bolaget sålde av stora delar och sänkte utdelningen. Aktien föll, och även med utdelningar steg ägarnas pengar bara 25 % på fem år.",
+   "en": "The loans weighed on it, growth didn't come and the company sold off large parts and cut its dividend. The stock fell, and even with dividends the owners' money rose only 25 % in five years."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Hög utdelning ersätter inte tillväxt",
+    "en": "A high dividend does not replace growth"
+   },
+   "text": {
+    "sv": "Pengar som delas ut finns inte kvar i bolaget. Utan tillväxt och med stora lån kan utdelningen bli en börda.",
+    "en": "Money that is paid out is no longer in the company. Without growth and with big loans the dividend can become a burden."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett bolag tjänar 100 miljoner kr per år och har lån på 600 miljoner kr. Hur många års vinst skulle det ta att betala tillbaka lånen?",
+    "en": "A company earns 100 million kr a year and has loans of 600 million kr. How many years of profit would it take to pay the loans back?"
+   },
+   "options": [
+    {
+     "sv": "6 år",
+     "en": "6 years"
+    },
+    {
+     "sv": "60 år",
+     "en": "60 years"
+    },
+    {
+     "sv": "1 år",
+     "en": "1 year"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "600 delat med 100 är 6. Det är hur många år bolaget skulle behöva för att betala allt.",
+    "en": "600 divided by 100 is 6. That is how many years the company would need to pay it all back."
+   }
+  }
+ },
+ {
+  "id": "horton",
+  "name": "D.R. Horton",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Ett bolag som bygger villor åt amerikanska familjer",
+   "en": "A company that builds houses for American families"
+  },
+  "desc": {
+   "sv": "Bygger och säljer småhus över hela USA. Försäljningen ökar kraftigt just nu. Går bra när räntorna är låga och folk vågar köpa hem.",
+   "en": "Builds and sells houses all over the US. Sales are rising sharply right now. Does well when interest rates are low and people dare to buy homes."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 15.0,
+   "growth": 34.9,
+   "debt": 3.2,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/882184/000088218415000085/"
+   ],
+   "approx": [
+    "debt"
+   ],
+   "debt_remark": {
+    "sv": "Husbyggares lån räknas lite annorlunda, så siffran är ungefärlig.",
+    "en": "Home builders' loans are counted a little differently, so the figure is approximate."
+   }
+  },
+  "clues": {},
+  "stock": 2.36,
+  "index": 2.03,
+  "story": {
+   "sv": "Räntorna förblev låga, och när pandemin kom ville många ha större bostäder. Husen blev dyrare och efterfrågan stor. Aktien mer än fördubblades och slog indexfonden.",
+   "en": "Interest rates stayed low, and when the pandemic came many wanted bigger homes. Houses got more expensive and demand was high. The stock more than doubled and beat the index fund."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Bolag följer ofta konjunkturen",
+    "en": "Companies often follow the economy"
+   },
+   "text": {
+    "sv": "Husbyggare, bilmakare och liknande går bra när det går bra för ekonomin och sämre när det går dåligt. Svårt att veta i förväg när det vänder.",
+    "en": "Home builders, carmakers and similar companies do well when the economy does well and worse when it does badly. Hard to know in advance when it turns."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett bolags försäljning växte 35 % på ett år. Vad betyder det?",
+    "en": "A company's sales grew 35 % in a year. What does that mean?"
+   },
+   "options": [
+    {
+     "sv": "Bolaget sålde 35 % mer än året före",
+     "en": "The company sold 35 % more than the year before"
+    },
+    {
+     "sv": "Aktien steg 35 %",
+     "en": "The stock rose 35 %"
+    },
+    {
+     "sv": "Vinsten ökade 35 %",
+     "en": "Profit rose 35 %"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Tillväxt i försäljning handlar bara om hur mycket mer som såldes. Vinst och aktiepris kan röra sig helt annorlunda.",
+    "en": "Sales growth is only about how much more was sold. Profit and share price can move quite differently."
+   }
+  }
+ },
+ {
+  "id": "underarmour",
+  "name": "Under Armour",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Ett sportklädesmärke som växer snabbt",
+   "en": "A sportswear brand that is growing fast"
+  },
+  "desc": {
+   "sv": "Säljer träningskläder och skor och utmanar de största märkena. Populärt bland unga idrottare. Försäljningen ökar snabbt, och aktien är mycket dyr.",
+   "en": "Sells workout clothes and shoes and challenges the biggest brands. Popular among young athletes. Sales are growing fast, and the stock is very expensive."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 75.9,
+   "growth": 27.6,
+   "debt": 1.4,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/1336917/000133691716000064/"
+   ]
+  },
+  "clues": {},
+  "stock": 0.44,
+  "index": 2.03,
+  "story": {
+   "sv": "Tillväxten avtog, konkurrensen från de stora märkena hårdnade och bolaget gick med förlust. Aktien föll till mindre än hälften av vad den kostade.",
+   "en": "Growth slowed, competition from the big brands got tougher and the company made a loss. The stock fell to less than half of what it cost."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Ett högt pris kräver att allt går rätt",
+    "en": "A high price requires everything to go right"
+   },
+   "text": {
+    "sv": "När du betalar för snabb tillväxt i många år i förväg finns ingen marginal för misstag. Då räcker det att tillväxten blir lite lägre än väntat.",
+    "en": "When you pay in advance for fast growth over many years there is no room for mistakes. It is enough for growth to be a bit lower than expected."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "En aktie kostar 76 gånger årsvinsten. Vad måste hända för att priset ska bli rimligt?",
+    "en": "A stock costs 76 times the yearly profit. What has to happen for the price to become reasonable?"
+   },
+   "options": [
+    {
+     "sv": "Vinsten måste växa mycket i många år",
+     "en": "Profit must grow a great deal for many years"
+    },
+    {
+     "sv": "Ingenting, priset är redan rimligt",
+     "en": "Nothing, the price is already reasonable"
+    },
+    {
+     "sv": "Bolaget måste sluta tjäna pengar",
+     "en": "The company must stop earning money"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Med P/E 76 betalar du 76 års vinst. Det går bara ihop om vinsten blir mångdubbelt större.",
+    "en": "At a P/E of 76 you pay 76 years of profit. That only adds up if profit becomes many times bigger."
+   }
+  }
+ },
+ {
+  "id": "amat",
+  "name": "Applied Materials",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Bolaget som bygger maskinerna som tillverkar datachips",
+   "en": "The company that builds the machines that make computer chips"
+  },
+  "desc": {
+   "sv": "Säljer maskiner till fabriker som gör chips till telefoner, datorer och bilar. När chiptillverkarna bygger mer fabriker säljer bolaget mer. Aktien är inte särskilt dyr.",
+   "en": "Sells machines to factories that make chips for phones, computers and cars. When chip makers build more factories, the company sells more. The stock is not particularly expensive."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 16.5,
+   "growth": 6.5,
+   "debt": 2.2,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/6951/000000695115000034/"
+   ]
+  },
+  "clues": {},
+  "stock": 5.06,
+  "index": 2.03,
+  "story": {
+   "sv": "Behovet av chips ökade kraftigt, och fabrikerna köpte fler maskiner. Aktien steg drygt fem gånger och slog indexfonden med råge.",
+   "en": "The need for chips rose sharply, and the factories bought more machines. The stock rose more than five times and beat the index fund by a wide margin."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Ibland tjänar de som säljer spadarna mest",
+    "en": "Sometimes those who sell the shovels earn the most"
+   },
+   "text": {
+    "sv": "Under en guldrush tjänar ofta de som säljer verktygen mest. Men det är svårt att veta i förväg vilken bransch som blir nästa guldrush.",
+    "en": "In a gold rush the ones selling the tools often earn the most. But it is hard to know in advance which industry will be the next gold rush."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "En aktie steg 400 % på fem år. Indexfonden steg 100 %. Slog aktien index?",
+    "en": "A stock rose 400 % in five years. The index fund rose 100 %. Did the stock beat the index?"
+   },
+   "options": [
+    {
+     "sv": "Ja",
+     "en": "Yes"
+    },
+    {
+     "sv": "Nej",
+     "en": "No"
+    },
+    {
+     "sv": "Går inte att säga",
+     "en": "Can't tell"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Aktien gav mycket mer än indexfonden, alltså slog den index.",
+    "en": "The stock gave much more than the index fund, so it beat the index."
+   }
+  }
+ },
+ {
+  "id": "cocacola",
+  "name": "Coca-Cola",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Världens mest kända läskedrycksmärke",
+   "en": "The world's best-known soft drink brand"
+  },
+  "desc": {
+   "sv": "Säljer läsk och andra drycker i över 200 länder. Älskat, stabilt och ger ägarna pengar varje år. Försäljningen minskar något just nu, och aktien är ganska dyr.",
+   "en": "Sells soft drinks and other drinks in over 200 countries. Loved, steady and gives its owners money every year. Sales are shrinking slightly right now, and the stock is fairly expensive."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 25.4,
+   "growth": -3.7,
+   "debt": 4.1,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/21344/000002134416000050/"
+   ]
+  },
+  "clues": {},
+  "stock": 1.47,
+  "index": 2.03,
+  "story": {
+   "sv": "Bolaget förblev stabilt men växte långsamt. Med utdelningar steg ägarnas pengar 47 %, medan indexfonden steg 103 %.",
+   "en": "The company stayed steady but grew slowly. With dividends the owners' money rose 47 %, while the index fund rose 103 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Tryggt är inte samma sak som bäst",
+    "en": "Safe is not the same as best"
+   },
+   "text": {
+    "sv": "Ett stabilt bolag med känt varumärke kan vara en trygg ägo, men det ger inte automatiskt mer än indexfonden.",
+    "en": "A steady company with a famous brand can be a safe thing to own, but it doesn't automatically give more than the index fund."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "En aktie är dyr, och försäljningen minskar. Vad är den största risken?",
+    "en": "A stock is expensive, and sales are shrinking. What is the biggest risk?"
+   },
+   "options": [
+    {
+     "sv": "Att förväntningarna på tillväxt inte infrias och aktien faller",
+     "en": "That the expectations of growth don't come true and the stock falls"
+    },
+    {
+     "sv": "Att bolaget blir för billigt",
+     "en": "That the company becomes too cheap"
+    },
+    {
+     "sv": "Ingen risk alls",
+     "en": "No risk at all"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "När priset räknar med bra tider men försäljningen går åt fel håll finns det mycket att tappa.",
+    "en": "When the price counts on good times but sales are going the wrong way there is a lot to lose."
+   }
+  }
+ },
+ {
+  "id": "intel",
+  "name": "Intel",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Bolaget som gör hjärnan i de flesta datorer",
+   "en": "The company that makes the brain of most computers"
+  },
+  "desc": {
+   "sv": "Tillverkar processorerna som styr de flesta datorer och servrar. Världens ledande, med mycket pengar på kontot. Försäljningen står still, och aktien är inte dyr.",
+   "en": "Makes the processors that run most computers and servers. The world leader, with a lot of money in the bank. Sales are flat, and the stock is not expensive."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 14.6,
+   "growth": -0.9,
+   "debt": 1.0,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/50863/000005086316000105/"
+   ]
+  },
+  "clues": {},
+  "stock": 1.67,
+  "index": 2.03,
+  "story": {
+   "sv": "Konkurrenterna blev bättre på att tillverka de modernaste chipsen och tog över ledningen. Med utdelningar steg ägarnas pengar 67 % på fem år, medan indexfonden steg 103 %.",
+   "en": "Competitors got better at making the most modern chips and took the lead. With dividends the owners' money rose 67 % in five years, while the index fund rose 103 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Marknadsledare kan tappa greppet",
+    "en": "Market leaders can lose their grip"
+   },
+   "text": {
+    "sv": "Att vara störst idag är ingen garanti för att vara störst om fem år. Teknik byter ledare snabbare än man tror.",
+    "en": "Being the biggest today is no guarantee of being the biggest in five years. Technology changes leaders faster than you think."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Bolag A har P/E 14 och bolag B har P/E 76. Vilket har marknaden högst förväntningar på?",
+    "en": "Company A has a P/E of 14 and company B a P/E of 76. Which does the market have the highest expectations of?"
+   },
+   "options": [
+    {
+     "sv": "A",
+     "en": "A"
+    },
+    {
+     "sv": "B",
+     "en": "B"
+    },
+    {
+     "sv": "Båda lika",
+     "en": "Both the same"
+    }
+   ],
+   "correct": 1,
+   "explain": {
+    "sv": "Ju mer du betalar per krona vinst, desto mer måste bolaget växa för att priset ska löna sig.",
+    "en": "The more you pay per krona of profit, the more the company has to grow for the price to pay off."
+   }
+  }
+ },
+ {
+  "id": "ford",
+  "name": "Ford",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Ett av USA:s största biltillverkare",
+   "en": "One of America's biggest carmakers"
+  },
+  "desc": {
+   "sv": "Bygger bilar och lastbilar som många amerikaner kör. Aktien är mycket billig, och bolaget delar ut en bra del av vinsten. Försäljningen växer långsamt.",
+   "en": "Builds the cars and trucks many Americans drive. The stock is very cheap, and the company pays out a good part of its profit. Sales are growing slowly."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 7.6,
+   "growth": 3.8,
+   "debt": null,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/37996/000003799617000013/"
+   ],
+   "debt_note": {
+    "sv": "Ford har ett eget bolag som lånar ut pengar till bilköpare, så ett vanligt skuldtal säger lite om risken.",
+    "en": "Ford has its own company lending money to car buyers, so an ordinary debt figure says little about risk."
+   }
+  },
+  "clues": {
+   "debt": {
+    "sv": "Eget låne-bolag",
+    "en": "Own lending arm"
+   }
+  },
+  "stock": 0.8,
+  "index": 2.03,
+  "story": {
+   "sv": "Omställningen till elbilar kostade miljarder, och pandemin stoppade fabrikerna. Med utdelningar förlorade ägarna ungefär en femtedel, medan indexfonden mer än fördubblades.",
+   "en": "The switch to electric cars cost billions, and the pandemic stopped the factories. With dividends the owners lost about a fifth, while the index fund more than doubled."
+  },
+  "lesson": {
+   "title": {
+    "sv": "En billig aktie är inte alltid ett fynd",
+    "en": "A cheap stock is not always a bargain"
+   },
+   "text": {
+    "sv": "Lågt P/E och bra utdelning kan dölja att branschen står inför stora förändringar som kostar mycket.",
+    "en": "A low P/E and a good dividend can hide that the industry faces big changes that cost a lot."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "En aktie har P/E 7,6. Vad betyder det?",
+    "en": "A stock has a P/E of 7.6. What does that mean?"
+   },
+   "options": [
+    {
+     "sv": "Du betalar ungefär 7,6 års vinst för aktien",
+     "en": "You pay about 7.6 years of profit for the stock"
+    },
+    {
+     "sv": "Aktien har stigit 7,6 %",
+     "en": "The stock has risen 7.6 %"
+    },
+    {
+     "sv": "Bolaget växer 7,6 % per år",
+     "en": "The company grows 7.6 % a year"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "P/E är priset delat med vinsten per aktie, alltså hur många års vinst du betalar.",
+    "en": "P/E is the price divided by profit per share, so how many years of profit you pay."
+   }
+  }
+ },
+ {
+  "id": "disney",
+  "name": "Walt Disney",
+  "when": {
+   "sv": "jan 2016",
+   "en": "Jan 2016"
+  },
+  "years": 5,
+  "market": {
+   "sv": "USA",
+   "en": "USA"
+  },
+  "title": {
+   "sv": "Bolaget bakom filmer, tecknade figurer och nöjesparker",
+   "en": "The company behind films, cartoon characters and theme parks"
+  },
+  "desc": {
+   "sv": "Gör filmer, äger nöjesparker och tv-kanaler och har rättigheterna till kända figurer. Älskat av barn och vuxna världen över, och vinsten är stabil.",
+   "en": "Makes films, owns theme parks and TV channels and holds the rights to famous characters. Loved by children and adults all over the world, and profit is steady."
+  },
+  "figures": {
+   "fy": "2015",
+   "pe": 21.0,
+   "growth": 7.5,
+   "debt": 1.0,
+   "src": [
+    "https://www.sec.gov/Archives/edgar/data/1001039/000100103915000255/"
+   ]
+  },
+  "clues": {},
+  "stock": 1.83,
+  "index": 2.03,
+  "story": {
+   "sv": "Bolaget lanserade en egen strömningstjänst som växte snabbt, men pandemin stängde nöjesparkerna. Med utdelningar steg ägarnas pengar 83 % på fem år, medan indexfonden steg 103 %.",
+   "en": "The company launched its own streaming service that grew fast, but the pandemic closed the theme parks. With dividends the owners' money rose 83 % in five years, while the index fund rose 103 %."
+  },
+  "lesson": {
+   "title": {
+    "sv": "Ett bra bolag är inte samma sak som en bra affär",
+    "en": "A great company is not the same as a great deal"
+   },
+   "text": {
+    "sv": "Priset räknar redan med att bolaget är bra. Vad som avgör din avkastning är om det går bättre eller sämre än vad alla redan förväntade sig.",
+    "en": "The price already counts on the company being great. What decides your return is whether it goes better or worse than everyone already expected."
+   }
+  },
+  "micro": {
+   "q": {
+    "sv": "Ett bolag är älskat av alla och har säkra vinster, men aktien kostar mycket. Varför kan den ändå gå sämre än indexfonden?",
+    "en": "A company is loved by everyone and has safe profits, but the stock costs a lot. Why might it still do worse than the index fund?"
+   },
+   "options": [
+    {
+     "sv": "För att priset redan räknar med att allt går bra",
+     "en": "Because the price already counts on everything going well"
+    },
+    {
+     "sv": "För att älskade bolag aldrig tjänar pengar",
+     "en": "Because loved companies never earn money"
+    },
+    {
+     "sv": "Det kan det inte",
+     "en": "It can't"
+    }
+   ],
+   "correct": 0,
+   "explain": {
+    "sv": "Du betalar för förväntningarna. Går det bara som väntat får du ingen extra avkastning.",
+    "en": "You pay for the expectations. If things only go as expected you get no extra return."
+   }
+  }
+ }
 ]

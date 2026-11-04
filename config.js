@@ -4,5 +4,6 @@ window.HINDSIGHT_CONFIG = {
   supabaseUrl: "https://dwshwtfhdkkulendkprp.supabase.co",
   supabaseAnonKey: "sb_publishable_5iRutcicsB44PKbpfV1j2Q_ZKdZlbI1",
   studyStart: "2026-11-04",   // day 1, in Swedish time. Day 21 = 2026-11-24.
+  contentVersion: "2026-11-04-21cards-b",  // change when cards/test/series files change
   postTestDay: 21             // the after-test unlocks from this day
 };
