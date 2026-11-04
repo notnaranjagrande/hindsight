@@ -107,12 +107,12 @@ async function renderHome() {
   if ($("#post")) $("#post").onclick = () => test("post");
 
   try {
-    const rows = await store.league(weekStart(stockholmDate()));
+    const rows = await store.league(cfg.studyStart); // total over the whole study
     $("#league").innerHTML = rows.length ? leagueTable(rows) : t("noLeague");
   } catch (e) { $("#league").textContent = t("saveError"); }
 }
 function leagueTable(rows) {
-  return `<ol class="league">${rows.map(r => `<li class="${r.me ? "me" : ""}"><span>${esc(r.name)}${r.me ? ` (${t("you")})` : ""}</span><b>${r.points} ${t("points")}</b></li>`).join("")}</ol>`;
+  return `<ol class="league">${rows.map((r, i) => `<li class="${r.me ? "me" : ""}"><span><span class="rank">${i + 1}</span>${esc(r.name)}${r.me ? ` (${t("you")})` : ""}<small class="muted"> · ${t("cardsPlayed", { n: r.cards })}</small></span><b>${r.points} ${t("points")}</b></li>`).join("")}</ol>`;
 }
 
 // ---------- the card ----------

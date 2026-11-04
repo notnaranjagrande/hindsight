@@ -108,3 +108,6 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sources summary{cursor:pointer}
 .sources ul{margin:6px 0 4px;padding-left:18px}
 .sources a{color:var(--accent)}
+
+.rank{display:inline-block;min-width:1.4em;font:600 13px var(--mono);color:var(--muted)}
+.league small{font-size:12px}
