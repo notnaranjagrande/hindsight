@@ -15,6 +15,7 @@ Statisk webbapp (HTML/JS, inget byggsteg) på GitHub Pages med Supabase som data
 | `store.js` | Spara/läsa: Supabase eller lokalt (demo) |
 | `i18n.js` | All UI-text på svenska och engelska |
 | `supabase/schema.sql` | Tabeller och funktioner. Klistras in i Supabase en gång |
+| `supabase/update_2.sql` | Lägger till "vilka har spelat idag" och testpoäng i spelarens tillstånd. Körs en gång efter `schema.sql`. Appen fungerar utan den, men döljer de två funktionerna |
 | `supabase/analysis.sql` | Facit per kort och testfråga samt analysvyer (retention, begreppstest före/efter, kalibrering). Klistras in i Supabase en gång, se nedan |
 | `tools/build_analysis.py` | Skriver om facitet i `analysis.sql` från `cards.json` och `test.json` |
 | `series.json` | Veckovisa totalavkastningskurvor (aktie och indexfond) för grafen i revealen |
@@ -82,3 +83,11 @@ Kör hela `supabase/analysis.sql` en gång i Supabase SQL Editor. Sedan läser d
 | `v_micro_by_period` | Begreppsfrågor rätt tidigt mot sent |
 
 Vyerna är låsta för den publika nyckeln. Bara du kan läsa dem i SQL Editor. Ändrar du korten: kör `python3 tools/build_analysis.py` och kör sedan filen igen. Tänk på att korten tidigt och sent har olika facit (4 av 7 slår index tidigt, 2 av 7 sent), så läs "Andel Nej-svar" bredvid kalibreringen.
+
+## Retention-funktioner (på startsidan)
+
+- Framstegsrad ("7 of 21 cards played") och antal dagar i rad.
+- "Moa and Max have played today" (kräver `supabase/update_2.sql`).
+- Personlig rapport efter 7 spelade kort: träffsäkerhet mot säkerhet, överdriven säkerhet, utveckling mellan första och senaste 7 korten, och begreppstestets resultat (kräver `update_2.sql`).
+- Daglig påminnelse: en kalenderfil (`.ics`, 20–21 dagliga händelser) eller Google Kalender, med spelarens egen länk. Skapas i webbläsaren, ingen server. Tipset om hemskärmen finns i samma ruta.
+- `daily-messages.md` (i projektmappen, inte i repot) har 21 neutrala gruppmeddelanden.

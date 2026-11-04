@@ -249,7 +249,28 @@ const STRINGS = {
         ]
       }
     ],
-    "approx": "Ungefärlig siffra."
+    "approx": "Ungefärlig siffra.",
+    "cardsDone": "{a} av {n} kort spelade",
+    "streak": "{n} dagar i rad",
+    "playedToday1": "{names} har spelat idag.",
+    "playedTodayN": "{names} har spelat idag.",
+    "nobodyToday": "Ingen annan har spelat idag än. Var först!",
+    "reportTitle": "Dina framsteg",
+    "reportAvg": "Du har gissat på {n} kort. I snitt var du {conf} % säker, och du hade rätt i {hit} % av fallen.",
+    "reportOver": "Du var {gap} procentenheter säkrare än resultatet motiverade. Det kallas överdriven säkerhet, och det är precis det spelet tränar dig att märka.",
+    "reportUnder": "Du var försiktigare än du behövde. Du hade rätt oftare än du trodde, med {gap} procentenheter.",
+    "reportGood": "Din säkerhet stämmer bra med verkligheten. Bra jobbat!",
+    "reportTrend": "Skillnaden mellan hur säker du var och hur ofta du hade rätt har gått från {a} procentenheter på dina första 7 kort till {b} på dina senaste 7.",
+    "reportTest": "Begreppstestet: {pre} → {post} av 10 rätt.",
+    "reportNote": "Svar där du kände igen bolaget räknas inte.",
+    "reminderTitle": "Daglig påminnelse",
+    "reminderIntro": "De flesta glömmer bort. Välj en tid, så påminner din kalender dig varje dag med en länk till ditt kort.",
+    "reminderTime": "Tid",
+    "reminderIcs": "Lägg till i kalender",
+    "reminderGoogle": "Google Kalender",
+    "reminderTip": "Tips: öppna din länk och välj Dela → Lägg till på hemskärmen, så får Hindsight en egen ikon.",
+    "calSummary": "Hindsight: dagens kort",
+    "calDesc": "Två minuter. Öppna ditt kort: {url}"
   },
   "en": {
     "switchLang": "Svenska",
@@ -501,9 +522,31 @@ const STRINGS = {
         ]
       }
     ],
-    "approx": "Approximate figure."
+    "approx": "Approximate figure.",
+    "cardsDone": "{a} of {n} cards played",
+    "streak": "{n} days in a row",
+    "playedToday1": "{names} has played today.",
+    "playedTodayN": "{names} have played today.",
+    "nobodyToday": "Nobody else has played today yet. Be the first!",
+    "reportTitle": "Your progress",
+    "reportAvg": "You've guessed on {n} cards. On average you were {conf} % sure, and you were right {hit} % of the time.",
+    "reportOver": "You were {gap} percentage points more sure than your results justified. This is called overconfidence, and it is exactly what the game trains you to notice.",
+    "reportUnder": "You were more careful than you needed to be. You were right more often than you thought, by {gap} percentage points.",
+    "reportGood": "Your confidence matches reality well. Nice work!",
+    "reportTrend": "The gap between how sure you were and how often you were right went from {a} percentage points on your first 7 cards to {b} on your latest 7.",
+    "reportTest": "Concept test: {pre} → {post} out of 10 right.",
+    "reportNote": "Answers where you knew the company are not counted.",
+    "reminderTitle": "Daily reminder",
+    "reminderIntro": "Most people forget. Pick a time, and your calendar will remind you every day with a link to your card.",
+    "reminderTime": "Time",
+    "reminderIcs": "Add to calendar",
+    "reminderGoogle": "Google Calendar",
+    "reminderTip": "Tip: open your link and choose Share → Add to Home Screen, and Hindsight gets its own icon.",
+    "calSummary": "Hindsight: today's card",
+    "calDesc": "Two minutes. Open your card: {url}"
   }
 };
+
 
 
 let lang = (() => { try { return localStorage.getItem("hindsight-lang") || "en"; } catch (e) { return "en"; } })();

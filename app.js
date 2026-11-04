@@ -4,7 +4,7 @@ const $ = s => document.querySelector(s);
 const stage = () => $("#stage");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-let CARDS = [], TEST = [], SERIES = {}, store, me, st, day;
+let CARDS = [], TEST = [], SERIES = {}, store, me, st, day, PLAYER_CODE = "";
 
 // ---------- dates (all in Swedish time) ----------
 function stockholmDate(d = new Date()) {
@@ -36,6 +36,7 @@ async function boot() {
   let code = params.get("p");
   try { if (code) localStorage.setItem("hindsight-code", code); else code = localStorage.getItem("hindsight-code"); } catch (e) {}
 
+  PLAYER_CODE = code || "";
   if (online) {
     if (!code) return fail(t("noCode"));
     store = makeSupabaseStore(cfg, code);
@@ -80,6 +81,83 @@ function renderIntro(i, then) {
   if (i) $("#back").onclick = () => intro(i - 1, then);
 }
 
+// ---- small helpers for the start page ----
+const shiftDate = (str, k) => { const d = new Date(str + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + k); return d.toISOString().slice(0, 10); };
+const joinNames = names => names.length < 2 ? names.join("") : names.slice(0, -1).join(", ") + " " + (lang === "sv" ? "och" : "and") + " " + names[names.length - 1];
+// Consecutive days with at least one answer. Today not played yet does not break it until tomorrow.
+function streak() {
+  const days = new Set(Object.values(st.answers).map(a => a.played_on));
+  let d = stockholmDate(), n = 0;
+  if (!days.has(d)) d = shiftDate(d, -1);
+  while (days.has(d)) { n++; d = shiftDate(d, -1); }
+  return n;
+}
+// Personal calibration report: how sure were you vs how often were you right. Answers where you knew the company don't count.
+function report() {
+  const g = Object.values(st.answers).filter(a => !a.recognised).map(a => {
+    const i = CARDS.findIndex(c => c.id === a.card_id), c = CARDS[i];
+    return c && { pos: i + 1, conf: a.confidence, correct: a.guess_beat === (c.stock > c.index) };
+  }).filter(Boolean).sort((x, y) => x.pos - y.pos);
+  if (g.length < 7) return null;
+  const stat = arr => { const n = arr.length, hit = 100 * arr.filter(x => x.correct).length / n, conf = arr.reduce((s, x) => s + x.conf, 0) / n; return { n, hit: Math.round(hit), conf: Math.round(conf), gap: Math.round(conf - hit) }; };
+  const early = g.length >= 14 ? stat(g.slice(0, 7)) : null, late = early ? stat(g.slice(-7)) : null;
+  return { all: stat(g), early, late, pre: st.tests.pre_score, post: st.tests.post_score };
+}
+function reportCard(r) {
+  const gap = r.all.gap, verdict = gap > 10 ? "reportOver" : gap < -10 ? "reportUnder" : "reportGood";
+  const sg = x => (x > 0 ? "+" : "") + x;
+  return `<section class="card report"><div class="eyebrow"><span>${t("reportTitle")}</span></div>
+    <p>${t("reportAvg", { n: r.all.n, conf: r.all.conf, hit: r.all.hit })}</p>
+    <p><b>${t(verdict, { gap: Math.abs(gap) })}</b></p>
+    ${r.early ? `<p>${t("reportTrend", { a: sg(r.early.gap), b: sg(r.late.gap) })}</p>` : ""}
+    ${r.pre != null && r.post != null ? `<p>${t("reportTest", { pre: r.pre, post: r.post })}</p>` : ""}
+    <small class="muted">${t("reportNote")}</small></section>`;
+}
+
+// ---- daily reminder: a calendar file with the player's own link (no server needed) ----
+const playerUrl = () => location.origin + location.pathname + (PLAYER_CODE ? "?p=" + encodeURIComponent(PLAYER_CODE) : "");
+const ymd = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+const hms = d => `${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
+function reminderPlan(time) {
+  const [h, m] = time.split(":").map(Number), now = new Date();
+  let start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
+  if (start <= now) start.setDate(start.getDate() + 1);                       // today's time has passed: begin tomorrow
+  const first = ymd(start), studyFirst = cfg.studyStart.replace(/-/g, "");
+  if (first < studyFirst) { const s0 = new Date(cfg.studyStart + "T00:00:00"); start = new Date(s0.getFullYear(), s0.getMonth(), s0.getDate(), h, m, 0); }
+  const last = shiftDate(cfg.studyStart, CARDS.length - 1);                   // the last card day
+  const startIso = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, "0")}-${String(start.getDate()).padStart(2, "0")}`;
+  const count = Math.max(1, daysBetween(startIso, last) + 1);
+  const end = new Date(start.getTime() + 10 * 60000);
+  return { start: `${ymd(start)}T${hms(start)}`, end: `${ymd(end)}T${hms(end)}`, count };
+}
+const icsText = s => s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+function icsFold(line) {                                                      // lines longer than 75 bytes must be folded
+  const enc = new TextEncoder(), out = []; let cur = "";
+  for (const ch of line) { if (enc.encode(cur + ch).length > 73) { out.push(cur); cur = " " + ch; } else cur += ch; }
+  out.push(cur); return out.join("\r\n");
+}
+function buildIcs(time) {
+  const p = reminderPlan(time), url = playerUrl();
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+  return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Hindsight//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
+    `UID:hindsight-${(PLAYER_CODE || "demo")}@hindsight`, `DTSTAMP:${stamp}`, `DTSTART:${p.start}`, `DTEND:${p.end}`, `RRULE:FREQ=DAILY;COUNT=${p.count}`,
+    `SUMMARY:${icsText(t("calSummary"))}`, `DESCRIPTION:${icsText(t("calDesc", { url }))}`, `URL:${url}`,
+    "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${icsText(t("calSummary"))}`, "TRIGGER:PT0M", "END:VALARM", "END:VEVENT", "END:VCALENDAR"
+  ].map(icsFold).join("\r\n") + "\r\n";
+}
+function googleCalUrl(time) {
+  const p = reminderPlan(time);
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE" + `&text=${encodeURIComponent(t("calSummary"))}` +
+    `&details=${encodeURIComponent(t("calDesc", { url: playerUrl() }))}` + `&dates=${p.start}/${p.end}` + `&recur=${encodeURIComponent("RRULE:FREQ=DAILY;COUNT=" + p.count)}`;
+}
+function reminderHtml(open) {
+  return `<details class="reminder" ${open ? "open" : ""}><summary>${t("reminderTitle")}</summary>
+    <p>${t("reminderIntro")}</p>
+    <label class="time-row">${t("reminderTime")} <input type="time" id="rem-time" value="12:00"></label>
+    <div class="btn-row"><button id="rem-ics">${t("reminderIcs")}</button><a class="btn" id="rem-google" target="_blank" rel="noopener noreferrer">${t("reminderGoogle")}</a></div>
+    <p class="muted small">${t("reminderTip")}</p></details>`;
+}
+
 // ---------- home ----------
 function home() { show(renderHome); }
 async function renderHome() {
@@ -90,22 +168,41 @@ async function renderHome() {
   else if (todayCard && !st.answers[todayCard.id]) main = `<button class="primary" id="today">${t("playToday")}</button>`;
   else if (day > n && !missed.length) main = `<p class="muted">${t("allDone")}</p>`;
   else main = `<p class="muted">${t("doneToday")}</p>`;
+  const played = Object.keys(st.answers).length, sk = streak(), rep = report();
 
   stage().innerHTML = `<section class="card">
     <div class="eyebrow"><span>${esc(t("hello", { name: me.name }))}</span><span>${day >= 1 ? t("dayOf", { d: Math.min(day, n), n }) : ""}</span></div>
+    <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${played}"><i style="width:${Math.round(100 * played / n)}%"></i></div>
+    <div class="prog-text"><span>${t("cardsDone", { a: played, n })}</span>${sk >= 2 ? `<span class="streak">${t("streak", { n: sk })}</span>` : ""}</div>
     ${main}
+    <p class="muted small" id="played-today" hidden></p>
     ${missed.length ? `<div class="list"><small class="label">${t("missed")}</small>${missed.map(c =>
       `<div class="row-item"><span>${esc(L(c.title))}</span><button data-card="${c.id}">${t("play")}</button></div>`).join("")}</div>` : ""}
     ${day >= cfg.postTestDay && !st.tests.post ? `<button id="post">${t("postCta")}</button>` : ""}
   </section>
+  ${rep ? reportCard(rep) : ""}
   <section class="card"><div class="eyebrow"><span>${t("league")}</span></div><div id="league" class="muted">${t("loading")}</div></section>
+  ${reminderHtml(day <= 2)}
   <button class="link" id="again-intro">${t("showIntro")}</button>`;
 
   $("#again-intro").onclick = () => intro(0, home);
   if ($("#today")) $("#today").onclick = () => ask(todayCard);
   stage().querySelectorAll("[data-card]").forEach(b => b.onclick = () => ask(CARDS.find(c => c.id === b.dataset.card)));
   if ($("#post")) $("#post").onclick = () => test("post");
+  const refreshGoogle = () => { $("#rem-google").href = googleCalUrl($("#rem-time").value || "12:00"); };
+  refreshGoogle(); $("#rem-time").onchange = refreshGoogle;
+  $("#rem-ics").onclick = () => {
+    store.log("reminder_ics", null, {});
+    const a = document.createElement("a");
+    a.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(buildIcs($("#rem-time").value || "12:00"));
+    a.download = "hindsight-reminder.ics"; document.body.appendChild(a); a.click(); a.remove();
+  };
 
+  if (day >= 1) store.today?.(stockholmDate()).then(rows => {                 // who else has played today (needs supabase/update_2.sql; hidden if missing)
+    const names = (rows || []).map(r => r.name), el = $("#played-today"); if (!el) return;
+    el.textContent = names.length ? t(names.length === 1 ? "playedToday1" : "playedTodayN", { names: joinNames(names) }) : t("nobodyToday");
+    el.hidden = false;
+  }).catch(() => {});
   try {
     const rows = await store.league(cfg.studyStart); // total over the whole study
     $("#league").innerHTML = rows.length ? leagueTable(rows) : t("noLeague");
@@ -334,7 +431,7 @@ function renderTest(kind) {
     $("#send").disabled = true;
     try { await store.submitTest({ kind, answers: picked, score }); }
     catch (e) { $("#err").hidden = false; $("#err").textContent = t("saveError"); $("#send").disabled = false; return; }
-    st.tests[kind] = true;
+    st.tests[kind] = true; st.tests[kind + "_score"] = score;
     stage().innerHTML = `<section class="card"><p>${t("thanks")}</p><button class="primary" id="home">${t("next")}</button></section>`;
     $("#home").onclick = home;
   };

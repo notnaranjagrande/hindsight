@@ -21,7 +21,8 @@ function makeSupabaseStore(cfg, code) {
     submitTest: x => rpc("hs_submit_test", { p_kind: x.kind, p_answers: x.answers, p_score: x.score }),
     log: (type, card, data = {}) => rpc("hs_log", { p_type: type, p_card: card, p_data: data }).catch(() => {}),
     cardGuesses: card => rpc("hs_card_guesses", { p_card: card }),
-    league: from => rpc("hs_league", { p_from: from })
+    league: from => rpc("hs_league", { p_from: from }),
+    today: date => rpc("hs_today", { p_date: date })   // from supabase/update_2.sql; the app copes if it has not been run
   };
 }
 
@@ -42,13 +43,14 @@ function makeLocalStore(cards) {
     me: async () => ({ name: "Demo" }),
     state: async () => ({
       answers: s.answers, micro: s.micro,
-      tests: { pre: !!s.tests.pre, post: !!s.tests.post }
+      tests: { pre: !!s.tests.pre, post: !!s.tests.post, pre_score: s.tests.pre?.score ?? null, post_score: s.tests.post?.score ?? null }
     }),
     submitAnswer: async a => { if (!s.answers[a.card_id]) { s.answers[a.card_id] = { ...a, recognised: false }; save(); } },
     setRecognised: async card => { if (s.answers[card]) { s.answers[card].recognised = true; save(); } },
     submitMicro: async m => { if (!s.micro[m.card_id]) { s.micro[m.card_id] = m; save(); } },
     submitTest: async x => { s.tests[x.kind] = x; save(); },
     log: async (type, card, data = {}) => { s.events.push({ type, card, data, at: new Date().toISOString() }); s.events = s.events.slice(-500); save(); },
+    today: async () => [{ name: "Alex (demo)" }],
     cardGuesses: async cardId => {
       const card = cards.find(c => c.id === cardId), mine = s.answers[cardId];
       if (!mine) return [];

@@ -111,3 +111,17 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 
 .rank{display:inline-block;min-width:1.4em;font:600 13px var(--mono);color:var(--muted)}
 .league small{font-size:12px}
+
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);transition:width .4s}
+.prog-text{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+.streak{font-weight:600;color:var(--accent)}
+.report p{font-size:14px}
+.reminder{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 20px;font-size:14px}
+.reminder summary{cursor:pointer;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.reminder[open] summary{margin-bottom:10px}
+.reminder p{margin:6px 0}
+.time-row{display:flex;align-items:center;gap:10px;margin:6px 0}
+.time-row input{font:600 15px var(--body);padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+a.btn{display:flex;align-items:center;justify-content:center;flex:1;font:600 15px var(--body);border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px;text-decoration:none;text-align:center}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
