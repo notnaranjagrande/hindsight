@@ -31,7 +31,7 @@ async function boot() {
   } catch (e) { return fail("Could not load cards.json / test.json"); }
   try { SERIES = (await fetch("series.json").then(r => r.json())).series || {}; } catch (e) {}
 
-  const online = cfg.supabaseUrl && cfg.supabaseAnonKey;
+  const online = cfg.supabaseUrl && cfg.supabaseAnonKey && !params.get("demo"); // ?demo=1 forces local demo mode for testing
   let code = params.get("p");
   try { if (code) localStorage.setItem("hindsight-code", code); else code = localStorage.getItem("hindsight-code"); } catch (e) {}
 
@@ -112,7 +112,7 @@ function renderAsk(card) {
     <div class="eyebrow"><span>${esc(L(card.market))}</span><span>${t("asOf", { when: L(card.when) })}</span></div>
     <h2>${esc(L(card.title))}</h2><p>${esc(L(card.desc))}</p>
     <div class="clues">${shown.map(k => figure(card, k)).join("")}</div>
-    <p class="hint" id="hint">${t("tapHint")}</p>
+    <div id="hint-row"><p class="hint" id="hint">${t("tapHint")}</p><button class="link" id="basics">${t("basicsLink")}</button></div>
     <div class="info" id="info" role="region" aria-live="polite" hidden></div>
     <p class="q">${t("question", { y: card.years })}</p>
     <div class="choice"><button id="yes">${t("yes")}</button><button id="no">${t("no")}</button></div>
@@ -121,16 +121,21 @@ function renderAsk(card) {
     <div class="err" id="err" hidden></div>
     <button class="primary" id="go" disabled>${t("fastForward", { y: card.years })}</button></section>`;
 
-  stage().querySelectorAll(".clue").forEach(b => b.onclick = () => {
-    const k = b.dataset.k, open = b.getAttribute("aria-expanded") === "true";
+  const closeInfo = () => {
+    $("#info").hidden = true; $("#hint-row").hidden = false;
     stage().querySelectorAll(".clue").forEach(x => x.setAttribute("aria-expanded", "false"));
-    if (open) { $("#info").hidden = true; $("#hint").hidden = false; return; }
-    b.setAttribute("aria-expanded", "true");
+  };
+  const openInfo = (k, chip) => {
+    stage().querySelectorAll(".clue").forEach(x => x.setAttribute("aria-expanded", "false"));
+    if (chip) chip.setAttribute("aria-expanded", "true");
     $("#info").innerHTML = infoBox(card, k);
-    $("#info").hidden = false; $("#hint").hidden = true;
-    $("#info-close").onclick = () => { $("#info").hidden = true; $("#hint").hidden = false; b.setAttribute("aria-expanded", "false"); b.focus(); };
+    $("#info").hidden = false; $("#hint-row").hidden = true;
+    $("#info-close").onclick = () => { closeInfo(); (chip || $("#basics")).focus(); };
     store.log("explain", card.id, { fig: k });
-  });
+  };
+  stage().querySelectorAll(".clue").forEach(b => b.onclick = () =>
+    b.getAttribute("aria-expanded") === "true" ? closeInfo() : openInfo(b.dataset.k, b));
+  $("#basics").onclick = () => openInfo("basics", null);
   const sel = v => { pick = v; $("#yes").classList.toggle("sel", v); $("#no").classList.toggle("sel", !v); $("#go").disabled = false; };
   $("#yes").onclick = () => sel(true); $("#no").onclick = () => sel(false);
   $("#cf").oninput = e => { conf = +e.target.value; $("#cfo").textContent = conf + " %"; };
@@ -158,12 +163,16 @@ function figure(card, k) {
   return `<button class="clue" data-k="${k}" aria-expanded="false"><small>${t("fig." + k)}<span class="i" aria-hidden="true">i</span></small><span>${esc(val)}</span>${sub ? `<em>${sub}</em>` : ""}${exact ? "" : `<em><i>${t("preliminary")}</i></em>`}</button>`;
 }
 function infoBox(card, k) {
-  const { val, sub, exact } = figureValue(card, k), inf = STRINGS[lang].info[k];
-  return `<div class="info-head"><b>${t("fig." + k)}</b><button class="link" id="info-close" aria-label="${t("infoClose")}">${t("infoClose")} ✕</button></div>
-    <div class="info-this"><small>${t("infoThis")}</small><b>${esc(val)}</b>${sub ? ` <span class="muted">· ${sub}</span>` : ""}${exact ? "" : `<div class="muted">${t("infoPrelim")}</div>`}</div>
-    <h4>${t("infoWhat")}</h4><p>${esc(inf.what)}</p>
-    <h4>${t("infoRead")}</h4><p>${esc(inf.read)}</p>
-    <h4>${t("infoExample")}</h4><p>${esc(inf.example)}</p>`;
+  const inf = STRINGS[lang].info[k];
+  let mine = "";
+  if (k !== "basics") {
+    const { val, sub, exact } = figureValue(card, k);
+    const label = card.clues?.[k]?.sv, means = STRINGS[lang].means[k]?.[label];
+    mine = `<div class="info-this"><small>${t("infoThis")}</small><b>${esc(val)}</b>${sub ? ` <span class="muted">· ${sub}</span>` : ""}
+      ${means ? `<p>${esc(means)}</p>` : ""}${exact ? "" : `<p class="muted">${t("infoPrelim")}</p>`}</div>`;
+  }
+  return `<div class="info-head"><div><b>${esc(inf.title)}</b><div class="muted">${esc(inf.tag)}</div></div><button class="link" id="info-close">${t("infoClose")} ✕</button></div>
+    ${mine}${inf.sections.map(([h, p]) => `<h4>${esc(h)}</h4><p>${esc(p)}</p>`).join("")}`;
 }
 
 // ---------- reveal ----------

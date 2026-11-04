@@ -43,10 +43,15 @@ button:disabled{opacity:.45;cursor:default}
 .info{background:var(--accent-soft);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;font-size:14px}
 .info h4{margin:4px 0 -4px;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 .info-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.info-head{align-items:flex-start}
 .info-head b{font:800 17px var(--display)}
+.info-head .muted{font-size:13px;font-weight:400;margin-top:2px}
+#hint-row{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+#hint-row .link{padding:2px 0;text-align:left}
 .info-this{background:var(--card);border-radius:10px;padding:8px 12px}
 .info-this small{display:block;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 .info-this b{font-size:17px}
+.info-this p{margin-top:4px;font-size:14px}
 .q{font-weight:600}
 .choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .conf{display:flex;flex-direction:column;gap:6px}
