@@ -504,7 +504,7 @@ const STRINGS = {
 };
 
 
-let lang = (() => { try { return localStorage.getItem("hindsight-lang") || "sv"; } catch (e) { return "sv"; } })();
+let lang = (() => { try { return localStorage.getItem("hindsight-lang") || "en"; } catch (e) { return "en"; } })();
 
 function setLang(l) {
   lang = l;
