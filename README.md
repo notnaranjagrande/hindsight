@@ -15,6 +15,8 @@ Statisk webbapp (HTML/JS, inget byggsteg) på GitHub Pages med Supabase som data
 | `store.js` | Spara/läsa: Supabase eller lokalt (demo) |
 | `i18n.js` | All UI-text på svenska och engelska |
 | `supabase/schema.sql` | Tabeller och funktioner. Klistras in i Supabase en gång |
+| `supabase/analysis.sql` | Facit per kort och testfråga samt analysvyer (retention, begreppstest före/efter, kalibrering). Klistras in i Supabase en gång, se nedan |
+| `tools/build_analysis.py` | Skriver om facitet i `analysis.sql` från `cards.json` och `test.json` |
 | `series.json` | Veckovisa totalavkastningskurvor (aktie och indexfond) för grafen i revealen |
 | `tools/build_cards.py` | Bygger `cards.json` (texter + siffror). Körs med `python3 tools/build_cards.py` |
 | `tools/figures_us.json` | Nyckeltal för de amerikanska bolagen, uträknade ur SEC:s bokslutsdata |
@@ -63,3 +65,20 @@ python3 -m http.server 8123
 ## Data
 
 Exportera som CSV från Supabase **Table Editor**. Inga namn eller koder ligger i det här repot. Radera datan efter kursen.
+
+## Analys
+
+Kör hela `supabase/analysis.sql` en gång i Supabase SQL Editor. Sedan läser du resultaten med `select * from <vy>;` (eller **Export CSV** i resultatpanelen):
+
+| Vy | Svarar på |
+|---|---|
+| `v_retention` | Hur många svarade varje dag, och på dag 21? |
+| `v_player_activity` | Kort spelade per person, första och sista dag |
+| `v_test_by_player` | Begreppstest före och efter, per person |
+| `v_test_by_question` | Per fråga: andel rätt och andel "Don't know", före och efter |
+| `v_calibration_all` / `v_calibration_by_player` | Kalibrering tidigt (kort 1–7) mot sent (kort 15–21): träffsäkerhet, genomsnittlig säkerhet, **överdriven säkerhet** (säkerhet minus andel rätt), säkerhet på fel svar, Brier, andel Nej-svar |
+| `v_calibration_curve` | När folk sa X % säkra, hur ofta hade de rätt? |
+| `v_engagement` | Tid per kort, tryck på förklaringar, begreppsfrågor rätt |
+| `v_micro_by_period` | Begreppsfrågor rätt tidigt mot sent |
+
+Vyerna är låsta för den publika nyckeln. Bara du kan läsa dem i SQL Editor. Ändrar du korten: kör `python3 tools/build_analysis.py` och kör sedan filen igen. Tänk på att korten tidigt och sent har olika facit (4 av 7 slår index tidigt, 2 av 7 sent), så läs "Andel Nej-svar" bredvid kalibreringen.
