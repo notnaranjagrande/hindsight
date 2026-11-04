@@ -4,7 +4,7 @@ const $ = s => document.querySelector(s);
 const stage = () => $("#stage");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-let CARDS = [], TEST = [], store, me, st, day;
+let CARDS = [], TEST = [], SERIES = {}, store, me, st, day;
 
 // ---------- dates (all in Swedish time) ----------
 function stockholmDate(d = new Date()) {
@@ -29,6 +29,7 @@ async function boot() {
   try {
     [CARDS, TEST] = await Promise.all([fetch("cards.json").then(r => r.json()), fetch("test.json").then(r => r.json())]);
   } catch (e) { return fail("Could not load cards.json / test.json"); }
+  try { SERIES = (await fetch("series.json").then(r => r.json())).series || {}; } catch (e) {}
 
   const online = cfg.supabaseUrl && cfg.supabaseAnonKey;
   let code = params.get("p");
@@ -111,7 +112,8 @@ function renderAsk(card) {
     <div class="eyebrow"><span>${esc(L(card.market))}</span><span>${t("asOf", { when: L(card.when) })}</span></div>
     <h2>${esc(L(card.title))}</h2><p>${esc(L(card.desc))}</p>
     <div class="clues">${shown.map(k => figure(card, k)).join("")}</div>
-    <p class="hint" id="explain">${t("tapHint")}</p>
+    <p class="hint" id="hint">${t("tapHint")}</p>
+    <div class="info" id="info" role="region" aria-live="polite" hidden></div>
     <p class="q">${t("question", { y: card.years })}</p>
     <div class="choice"><button id="yes">${t("yes")}</button><button id="no">${t("no")}</button></div>
     <div class="conf"><label for="cf">${t("howSure")} <output id="cfo">70 %</output></label>
@@ -120,9 +122,14 @@ function renderAsk(card) {
     <button class="primary" id="go" disabled>${t("fastForward", { y: card.years })}</button></section>`;
 
   stage().querySelectorAll(".clue").forEach(b => b.onclick = () => {
-    $("#explain").textContent = t("explain." + b.dataset.k);
-    $("#explain").classList.add("open");
-    store.log("explain", card.id, { fig: b.dataset.k });
+    const k = b.dataset.k, open = b.getAttribute("aria-expanded") === "true";
+    stage().querySelectorAll(".clue").forEach(x => x.setAttribute("aria-expanded", "false"));
+    if (open) { $("#info").hidden = true; $("#hint").hidden = false; return; }
+    b.setAttribute("aria-expanded", "true");
+    $("#info").innerHTML = infoBox(card, k);
+    $("#info").hidden = false; $("#hint").hidden = true;
+    $("#info-close").onclick = () => { $("#info").hidden = true; $("#hint").hidden = false; b.setAttribute("aria-expanded", "false"); b.focus(); };
+    store.log("explain", card.id, { fig: k });
   });
   const sel = v => { pick = v; $("#yes").classList.toggle("sel", v); $("#no").classList.toggle("sel", !v); $("#go").disabled = false; };
   $("#yes").onclick = () => sel(true); $("#no").onclick = () => sel(false);
@@ -137,40 +144,99 @@ function renderAsk(card) {
     reveal(card);
   };
 }
-function figure(card, k) {
+function figureValue(card, k) {
   const f = card.figures || {};
-  let val, sub = "";
+  let val, sub = "", exact = true;
   if (k === "pe" && f.pe != null) { val = num(f.pe, 0); if (f.pe_index != null) sub = t("indexAvg", { v: num(f.pe_index, 0) }); }
   else if (k === "growth" && f.growth != null) { val = (f.growth > 0 ? "+" : "") + num(f.growth, 0) + " %"; if (f.growth_index != null) sub = t("indexAvg", { v: num(f.growth_index, 0) + " %" }); }
   else if (k === "debt" && f.debt != null) { val = num(f.debt, 1); }
-  else { val = L(card.clues?.[k]); sub = `<i>${t("preliminary")}</i>`; } // until the real figures are in cards.json
-  return `<button class="clue" data-k="${k}"><small>${t("fig." + k)}</small><span>${esc(val)}</span>${sub ? `<em>${sub}</em>` : ""}</button>`;
+  else { val = L(card.clues?.[k]); exact = false; } // until the real figures are in cards.json
+  return { val, sub, exact };
+}
+function figure(card, k) {
+  const { val, sub, exact } = figureValue(card, k);
+  return `<button class="clue" data-k="${k}" aria-expanded="false"><small>${t("fig." + k)}<span class="i" aria-hidden="true">i</span></small><span>${esc(val)}</span>${sub ? `<em>${sub}</em>` : ""}${exact ? "" : `<em><i>${t("preliminary")}</i></em>`}</button>`;
+}
+function infoBox(card, k) {
+  const { val, sub, exact } = figureValue(card, k), inf = STRINGS[lang].info[k];
+  return `<div class="info-head"><b>${t("fig." + k)}</b><button class="link" id="info-close" aria-label="${t("infoClose")}">${t("infoClose")} ✕</button></div>
+    <div class="info-this"><small>${t("infoThis")}</small><b>${esc(val)}</b>${sub ? ` <span class="muted">· ${sub}</span>` : ""}${exact ? "" : `<div class="muted">${t("infoPrelim")}</div>`}</div>
+    <h4>${t("infoWhat")}</h4><p>${esc(inf.what)}</p>
+    <h4>${t("infoRead")}</h4><p>${esc(inf.read)}</p>
+    <h4>${t("infoExample")}</h4><p>${esc(inf.example)}</p>`;
 }
 
 // ---------- reveal ----------
 function reveal(card) { show(() => renderReveal(card)); }
 function renderReveal(card) {
   const a = st.answers[card.id], beat = card.stock > card.index, ok = a.guess_beat === beat, t0 = Date.now();
-  const scale = x => Math.max(4, Math.min(100, Math.log(x * 3) / Math.log(17 * 3) * 100));
   stage().innerHTML = `<section class="card">
     <div class="eyebrow"><span>${esc(L(card.market))}</span><span>${esc(L(card.when))} → ${t("plusYears", { y: card.years })}</span></div>
     <div class="reveal-name">${esc(card.name)}</div>
-    <div class="bars">
-      <div class="bar"><span>${t("stock")}</span><div class="track"><div class="fill" id="f1" style="background:var(${beat ? "--up" : "--down"})"></div></div><span class="num">${mult(card.stock)}</span></div>
-      <div class="bar"><span>${t("indexFund")}</span><div class="track"><div class="fill" id="f2" style="background:var(--idx)"></div></div><span class="num">${mult(card.index)}</span></div>
-    </div>
+    ${chartHtml(card, beat) || barsHtml(card, beat)}
     ${card.approx ? `<small class="muted">${t("approx")}</small>` : ""}
     <div class="verdict ${ok ? "good" : "bad"}">${ok ? t("right") : t("wrong")}, ${a.confidence} % ${t("sure")} · ${a.points > 0 ? "+" : ""}${a.points} ${t("pointsWord")}</div>
     <p>${esc(L(card.story))}</p>
     <div class="lesson"><b>${esc(L(card.lesson.title))}</b>${esc(L(card.lesson.text))}</div>
     <button class="ghost" id="rec" ${a.recognised ? "disabled" : ""}>${a.recognised ? t("recognisedNoted") : t("recognised")}</button>
     <button class="primary" id="next">${t("next")}</button></section>`;
-  requestAnimationFrame(() => requestAnimationFrame(() => { $("#f1").style.width = scale(card.stock) + "%"; $("#f2").style.width = scale(card.index) + "%"; }));
+  animateReveal();
   $("#rec").onclick = async () => {
     $("#rec").disabled = true; $("#rec").textContent = t("recognisedNoted");
     a.recognised = true; store.setRecognised(card.id).catch(() => {});
   };
   $("#next").onclick = () => { store.log("reveal_time", card.id, { ms: Date.now() - t0 }); micro(card); };
+}
+
+function barsHtml(card, beat) {
+  return `<div class="bars">
+      <div class="bar"><span>${t("stock")}</span><div class="track"><div class="fill" data-w="${barW(card.stock)}" style="background:var(${beat ? "--up" : "--down"})"></div></div><span class="num">${mult(card.stock)}</span></div>
+      <div class="bar"><span>${t("indexFund")}</span><div class="track"><div class="fill" data-w="${barW(card.index)}" style="background:var(--idx)"></div></div><span class="num">${mult(card.index)}</span></div>
+    </div>`;
+}
+const barW = x => Math.max(4, Math.min(100, Math.log(x * 3) / Math.log(17 * 3) * 100)).toFixed(1);
+
+// Stock vs index fund over the five years, both as total-return multiples starting at ×1, on a log axis
+// so a ×14 winner and a ×1.5 index fund can share one chart (equal distances mean equal percentage changes).
+function chartHtml(card, beat) {
+  const sr = SERIES[card.id]; if (!sr) return "";
+  const W = 480, H = 230, m = { l: 44, r: 58, t: 14, b: 26 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const all = [...sr.stock, ...sr.index];
+  const lo = Math.min(...all, 1) / 1.12, hi = Math.max(...all, 1) * 1.12;
+  const y = v => m.t + ih * (1 - (Math.log(v) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)));
+  const n = sr.stock.length, x = i => m.l + iw * i / (n - 1);
+  const path = a => a.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join("");
+  const ticks = [0.1, 0.2, 0.3, 0.5, 0.75, 1, 1.5, 2, 3, 5, 10, 20].filter(v => v >= lo && v <= hi);
+  const keep = ticks.length > 6 ? ticks.filter((v, i) => v === 1 || i % 2 === 0) : ticks;
+  const y0 = +sr.start.slice(0, 4), years = Array.from({ length: card.years + 1 }, (_, k) => k);
+  const endS = card.stock, endI = card.index;
+  let ly = [y(endS), y(endI)];                       // keep the two end labels from overlapping
+  if (Math.abs(ly[0] - ly[1]) < 15) { const mid = (ly[0] + ly[1]) / 2, up = ly[0] < ly[1]; ly = up ? [mid - 8, mid + 8] : [mid + 8, mid - 8]; }
+  const colS = beat ? "var(--up)" : "var(--down)";
+  return `<figure class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t("chartAria", { s: mult(endS), i: mult(endI) }))}">
+      ${keep.map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" class="${v === 1 ? "g1" : "g"}"/>
+        <text x="${m.l - 6}" y="${(y(v) + 4).toFixed(1)}" class="ax" text-anchor="end">×${num(v, 2)}</text>`).join("")}
+      ${years.map(k => `<text x="${(m.l + iw * k / card.years).toFixed(1)}" y="${H - 6}" class="ax" text-anchor="${k === 0 ? "start" : k === card.years ? "end" : "middle"}">${y0 + k}</text>`).join("")}
+      <path d="${path(sr.index)}" class="ln" stroke="var(--idx)" data-draw/>
+      <path d="${path(sr.stock)}" class="ln" stroke="${colS}" data-draw/>
+      <circle cx="${x(n - 1)}" cy="${y(endI).toFixed(1)}" r="3.5" fill="var(--idx)" class="dot"/>
+      <circle cx="${x(n - 1)}" cy="${y(endS).toFixed(1)}" r="3.5" fill="${colS}" class="dot"/>
+      <text x="${W - m.r + 8}" y="${(ly[1] + 4).toFixed(1)}" class="end" fill="var(--idx)">${mult(endI)}</text>
+      <text x="${W - m.r + 8}" y="${(ly[0] + 4).toFixed(1)}" class="end" fill="${colS}">${mult(endS)}</text>
+    </svg>
+    <figcaption><span><i class="sw" style="background:${colS}"></i>${t("stock")} ${mult(endS)}</span><span><i class="sw" style="background:var(--idx)"></i>${t("indexFund")} ${mult(endI)}</span></figcaption></figure>`;
+}
+// Draws the lines left to right (the "fast-forward"); also fills the fallback bars
+function animateReveal() {
+  const paths = [...stage().querySelectorAll("[data-draw]")], bars = [...stage().querySelectorAll(".fill")];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  paths.forEach(p => { const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = reduce ? 0 : len; p.getBoundingClientRect(); });
+  stage().querySelectorAll(".dot, .end").forEach(e => { e.style.opacity = reduce ? 1 : 0; });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    paths.forEach(p => { p.style.transition = reduce ? "none" : "stroke-dashoffset 2.4s cubic-bezier(.3,.6,.2,1)"; p.style.strokeDashoffset = 0; });
+    stage().querySelectorAll(".dot, .end").forEach(e => { e.style.transition = reduce ? "none" : "opacity .4s 2.2s"; e.style.opacity = 1; });
+    bars.forEach(b => { b.style.width = b.dataset.w + "%"; });
+  }));
 }
 
 // ---------- micro-question ----------

@@ -37,7 +37,16 @@ button:disabled{opacity:.45;cursor:default}
 .clue span{font-weight:600;font-size:17px}
 .clue em{font-style:normal;font-size:12px;color:var(--muted)}
 .hint{font-size:13px;color:var(--muted)}
-.hint.open{color:var(--ink);background:var(--accent-soft);border-radius:10px;padding:10px 12px}
+.clue{border-style:dashed}
+.clue[aria-expanded="true"]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.clue .i{display:inline-grid;place-items:center;width:15px;height:15px;margin-left:6px;border:1px solid var(--muted);border-radius:50%;font:600 10px/1 var(--body);text-transform:none;letter-spacing:0;vertical-align:1px}
+.info{background:var(--accent-soft);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.info h4{margin:4px 0 -4px;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.info-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.info-head b{font:800 17px var(--display)}
+.info-this{background:var(--card);border-radius:10px;padding:8px 12px}
+.info-this small{display:block;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.info-this b{font-size:17px}
 .q{font-weight:600}
 .choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .conf{display:flex;flex-direction:column;gap:6px}
@@ -49,6 +58,15 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .track{height:22px;background:var(--accent-soft);border-radius:6px;overflow:hidden}
 .fill{height:100%;width:0;border-radius:6px;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
 .num{font:500 14px var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.chart{margin:0;display:flex;flex-direction:column;gap:6px}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart .g{stroke:var(--line);stroke-width:1}
+.chart .g1{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
+.chart .ax{font:500 10px var(--mono);fill:var(--muted)}
+.chart .end{font:600 12px var(--mono)}
+.chart .ln{fill:none;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.chart figcaption{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px}
+.chart .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .reveal-name{font:800 28px/1.1 var(--display)}
 .verdict{font:800 20px var(--display)}
 .good{color:var(--up)} .bad{color:var(--down)}

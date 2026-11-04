@@ -3,6 +3,6 @@
 window.HINDSIGHT_CONFIG = {
   supabaseUrl: "",
   supabaseAnonKey: "",
-  studyStart: "2026-11-05",   // day 1, in Swedish time. Set to today while testing.
+  studyStart: "2026-11-04",   // day 1, in Swedish time. Day 21 = 2026-11-24.
   postTestDay: 21             // the after-test unlocks from this day
 };

@@ -24,7 +24,7 @@ const STRINGS = {
     no: "Nej",
     howSure: "Hur säker är du?",
     fastForward: "Spola fram {y} år",
-    tapHint: "Tryck på ett nyckeltal för förklaring.",
+    tapHint: "Tryck på ett nyckeltal för att få det förklarat.",
     indexAvg: "index {v}",
     preliminary: "prel.",
     stock: "Aktien",
@@ -55,10 +55,30 @@ const STRINGS = {
     disclaimer: "Inget här är investeringsråd. Jämför alltid med en indexfond.",
     saveError: "Kunde inte spara. Kolla nätet och försök igen.",
     fig: { pe: "P/E", growth: "Omsättningstillväxt", debt: "Nettoskuld/EBITDA" },
-    explain: {
-      pe: "P/E = aktiepriset delat med vinsten per aktie. Högt P/E betyder att marknaden betalar mycket för dagens vinst, oftast för att den väntar sig hög tillväxt.",
-      growth: "Hur mycket försäljningen ökade det senaste året. Jämför med index: växer bolaget snabbare eller långsammare än ett typiskt bolag?",
-      debt: "Lån minus kassa, delat med rörelseresultatet före avskrivningar. Visar hur många års resultat skulden motsvarar. Över 3–4 är högt, utom för banker."
+    infoWhat: "Vad det är",
+    infoRead: "Så läser du det",
+    infoExample: "Exempel",
+    infoThis: "Det här bolaget",
+    infoPrelim: "Förhandsbetyg, exakt siffra kommer.",
+    infoClose: "Stäng",
+    chartAria: "Graf över aktien och indexfonden. Aktien slutade på {s}, indexfonden på {i}, där 1 är startvärdet.",
+    breakEven: "Börjar på ×1",
+    info: {
+      pe: {
+        what: "P/E visar hur många gånger årsvinsten du betalar för en aktie. P/E 20 betyder att aktien kostar 20 gånger vinsten per aktie.",
+        read: "Högt P/E: marknaden väntar sig att vinsten ska växa snabbt. Lågt P/E: den väntar sig lite tillväxt, eller oroar sig för något. Varken högt eller lågt är rätt eller fel i sig. Frågan är om förväntningarna håller.",
+        example: "Bolag A tjänar 10 kr per aktie och kostar 100 kr (P/E 10). Bolag B tjänar också 10 kr men kostar 400 kr (P/E 40). Ingen betalar fyra gånger mer utan att tro att B växer mycket snabbare."
+      },
+      growth: {
+        what: "Hur mycket bolagets försäljning ökade det senaste året, i procent.",
+        read: "Jämför med indexsnittet. Över snittet: bolaget växer snabbare än ett typiskt bolag. Men snabb tillväxt kan redan vara inräknad i priset (se P/E), och om tillväxten avtar kan aktien falla även när bolaget fortfarande växer.",
+        example: "Försäljningen går från 100 till 130 miljoner. Det är +30 %."
+      },
+      debt: {
+        what: "Nettoskuld/EBITDA är lån minus kassa, delat med rörelseresultatet före avskrivningar. Svaret är hur många års resultat det skulle ta att betala skulden.",
+        read: "Under 2 är låg. 3–4 är hög. Över 5 är farligt om resultatet faller. Banker har alltid hög skuld, det är deras affär, så jämför dem inte med andra bolag.",
+        example: "Skulden är 600 miljoner och resultatet 100 miljoner per år. Då är kvoten 6, alltså sex års resultat."
+      }
     }
   },
   en: {
@@ -86,7 +106,7 @@ const STRINGS = {
     no: "No",
     howSure: "How sure are you?",
     fastForward: "Fast-forward {y} years",
-    tapHint: "Tap a figure for an explanation.",
+    tapHint: "Tap a figure to have it explained.",
     indexAvg: "index {v}",
     preliminary: "prelim.",
     stock: "Stock",
@@ -117,10 +137,30 @@ const STRINGS = {
     disclaimer: "Nothing here is investment advice. Always compare with an index fund.",
     saveError: "Couldn't save. Check your connection and try again.",
     fig: { pe: "P/E", growth: "Revenue growth", debt: "Net debt/EBITDA" },
-    explain: {
-      pe: "P/E = share price divided by profit per share. A high P/E means the market pays a lot for today's profit, usually because it expects fast growth.",
-      growth: "How much sales grew over the last year. Compare with the index: is the company growing faster or slower than a typical company?",
-      debt: "Loans minus cash, divided by operating profit before depreciation. Shows how many years of profit the debt equals. Above 3–4 is high, except for banks."
+    infoWhat: "What it is",
+    infoRead: "How to read it",
+    infoExample: "Example",
+    infoThis: "This company",
+    infoPrelim: "Rough rating, exact figure coming.",
+    infoClose: "Close",
+    chartAria: "Chart of the stock and the index fund. The stock ended at {s}, the index fund at {i}, where 1 is the starting value.",
+    breakEven: "Starts at ×1",
+    info: {
+      pe: {
+        what: "P/E shows how many times the yearly profit you pay for a share. A P/E of 20 means the share costs 20 times the profit per share.",
+        read: "High P/E: the market expects profits to grow fast. Low P/E: it expects little growth, or is worried about something. Neither is right or wrong by itself. The question is whether the expectations hold.",
+        example: "Company A earns 10 kr per share and costs 100 kr (P/E 10). Company B also earns 10 kr but costs 400 kr (P/E 40). Nobody pays four times as much unless they believe B will grow much faster."
+      },
+      growth: {
+        what: "How much the company's sales grew over the last year, in percent.",
+        read: "Compare with the index average. Above it: the company grows faster than a typical company. But fast growth may already be built into the price (see P/E), and if growth slows the stock can fall even while the company is still growing.",
+        example: "Sales go from 100 to 130 million. That is +30 %."
+      },
+      debt: {
+        what: "Net debt/EBITDA is loans minus cash, divided by operating profit before depreciation. The answer is how many years of profit it would take to pay off the debt.",
+        read: "Under 2 is low. 3–4 is high. Above 5 is dangerous if profits fall. Banks always have high debt, that is their business, so don't compare them with other companies.",
+        example: "Debt is 600 million and profit is 100 million a year. The ratio is 6, six years of profit."
+      }
     }
   }
 };

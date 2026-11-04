@@ -15,6 +15,8 @@ Statisk webbapp (HTML/JS, inget byggsteg) på GitHub Pages med Supabase som data
 | `store.js` | Spara/läsa: Supabase eller lokalt (demo) |
 | `i18n.js` | All UI-text på svenska och engelska |
 | `supabase/schema.sql` | Tabeller och funktioner. Klistras in i Supabase en gång |
+| `series.json` | Veckovisa totalavkastningskurvor (aktie och indexfond) för grafen i revealen |
+| `tools/make_series.py` | Skapar `series.json` från Yahoo Finance-kurser. Se skriptet för hur den körs |
 
 ## Köra lokalt
 
