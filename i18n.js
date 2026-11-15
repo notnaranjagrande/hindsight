@@ -53,6 +53,8 @@ const STRINGS = {
     "thanks": "Tack! Dina svar är sparade.",
     "disclaimer": "Inget här är investeringsråd. Jämför alltid med en indexfond.",
     "saveError": "Kunde inte spara. Kolla nätet och försök igen.",
+    "loadError": "Kunde inte ladda. Kolla nätet och försök igen.",
+    "retry": "Försök igen",
     "fig": {
       "pe": "Pris per vinst (P/E)",
       "growth": "Ökad försäljning",
@@ -326,6 +328,8 @@ const STRINGS = {
     "thanks": "Thanks! Your answers are saved.",
     "disclaimer": "Nothing here is investment advice. Always compare with an index fund.",
     "saveError": "Couldn't save. Check your connection and try again.",
+    "loadError": "Couldn't load. Check your connection and try again.",
+    "retry": "Try again",
     "fig": {
       "pe": "Price per profit (P/E)",
       "growth": "Sales growth",

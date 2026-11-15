@@ -26,29 +26,27 @@ const mult = x => "×" + num(x, 2);
 // ---------- boot ----------
 async function boot() {
   setLang(lang);
-  try {
-    const v = encodeURIComponent(cfg.contentVersion || "1"); // bump in config.js when cards.json / test.json / series.json change, so browsers fetch the new files
-    [CARDS, TEST] = await Promise.all([fetch("cards.json?v=" + v).then(r => r.json()), fetch("test.json?v=" + v).then(r => r.json())]);
-  } catch (e) { return fail("Could not load cards.json / test.json"); }
-  try { SERIES = (await fetch("series.json?v=" + encodeURIComponent(cfg.contentVersion || "1")).then(r => r.json())).series || {}; } catch (e) {}
+  // Content files and the player's saved state are fetched at the same time, so the first screen needs one round trip, not four.
+  const v = encodeURIComponent(cfg.contentVersion || "1"); // bump in config.js when cards.json / test.json / series.json change
+  const getJson = f => fetch(f + "?v=" + v).then(r => { if (!r.ok) throw new Error(f); return r.json(); });
+  const content = Promise.all([getJson("cards.json"), getJson("test.json"), getJson("series.json").catch(() => ({}))]);
+  content.catch(() => {});
 
   const online = cfg.supabaseUrl && cfg.supabaseAnonKey && !params.get("demo"); // ?demo=1 forces local demo mode for testing
   let code = params.get("p");
   try { if (code) localStorage.setItem("hindsight-code", code); else code = localStorage.getItem("hindsight-code"); } catch (e) {}
-
   PLAYER_CODE = code || "";
-  if (online) {
-    if (!code) return fail(t("noCode"));
-    store = makeSupabaseStore(cfg, code);
-  } else {
-    store = makeLocalStore(CARDS);
-  }
+  if (online && !code) return fail(t("noCode"));
 
+  let player = null;
+  if (online) { store = makeSupabaseStore(cfg, code); player = Promise.all([store.me(), store.state()]); player.catch(() => {}); }
+  try { let sr; [CARDS, TEST, sr] = await content; SERIES = sr.series || {}; }
+  catch (e) { return fail(t("loadError"), true); }
+  if (!online) { store = makeLocalStore(CARDS); player = Promise.all([store.me(), store.state()]); }
   try {
-    me = await store.me();
+    [me, st] = await player;
     if (!me) return fail(t("unknownCode"));
-    st = await store.state();
-  } catch (e) { return fail(t("saveError")); }
+  } catch (e) { return fail(t("loadError"), true); }
 
   const today = stockholmDate();
   day = daysBetween(cfg.studyStart, today) + 1;
@@ -57,7 +55,10 @@ async function boot() {
   st.tests.pre ? home() : intro(0);
 }
 
-function fail(msg) { stage().innerHTML = `<section class="card"><p>${esc(msg)}</p></section>`; }
+function fail(msg, retry) {
+  stage().innerHTML = `<section class="card"><p>${esc(msg)}</p>${retry ? `<button class="primary" id="retry">${t("retry")}</button>` : ""}</section>`;
+  if (retry) $("#retry").onclick = () => location.reload();
+}
 
 function topbar() {
   $("#lang").textContent = t("switchLang");
@@ -130,7 +131,7 @@ function reminderPlan(time) {
   const end = new Date(start.getTime() + 10 * 60000);
   return { start: `${ymd(start)}T${hms(start)}`, end: `${ymd(end)}T${hms(end)}`, count };
 }
-const icsText = s => s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+const icsText = s => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
 function icsFold(line) {                                                      // lines longer than 75 bytes must be folded
   const enc = new TextEncoder(), out = []; let cur = "";
   for (const ch of line) { if (enc.encode(cur + ch).length > 73) { out.push(cur); cur = " " + ch; } else cur += ch; }
@@ -205,20 +206,22 @@ async function renderHome() {
   }).catch(() => {});
   try {
     const rows = await store.league(cfg.studyStart); // total over the whole study
-    $("#league").innerHTML = rows.length ? leagueTable(rows) : t("noLeague");
-  } catch (e) { $("#league").textContent = t("saveError"); }
+    if ($("#league")) $("#league").innerHTML = rows.length ? leagueTable(rows) : t("noLeague");
+  } catch (e) { if ($("#league")) $("#league").textContent = t("loadError"); }
 }
 function leagueTable(rows) {
   return `<ol class="league">${rows.map((r, i) => `<li class="${r.me ? "me" : ""}"><span><span class="rank">${i + 1}</span>${esc(r.name)}${r.me ? ` (${t("you")})` : ""}<small class="muted"> · ${t("cardsPlayed", { n: r.cards })}</small></span><b>${r.points} ${t("points")}</b></li>`).join("")}</ol>`;
 }
 
 // ---------- the card ----------
-function ask(card) { show(() => renderAsk(card)); }
-function renderAsk(card) {
+function ask(card) {
+  const s = { pick: null, conf: 70, t0: Date.now() };       // kept outside the render, so switching language keeps the answer and the timer
+  store.log("card_shown", card.id, { pos: CARDS.indexOf(card) + 1 });
+  show(() => renderAsk(card, s));
+}
+function renderAsk(card, s) {
   const pos = CARDS.indexOf(card) + 1;
   const shown = ["pe", ...(pos >= 4 ? ["growth"] : []), ...(pos >= 7 ? ["debt"] : [])]; // concepts arrive in stages
-  let pick = null, conf = 70; const t0 = Date.now();
-  store.log("card_shown", card.id, { pos });
 
   stage().innerHTML = `<section class="card">
     <div class="eyebrow"><span>${esc(L(card.market))}</span><span>${t("asOf", { when: L(card.when) })}</span></div>
@@ -228,8 +231,8 @@ function renderAsk(card) {
     <div class="info" id="info" role="region" aria-live="polite" hidden></div>
     <p class="q">${t("question", { y: card.years })}</p>
     <div class="choice"><button id="yes">${t("yes")}</button><button id="no">${t("no")}</button></div>
-    <div class="conf"><label for="cf">${t("howSure")} <output id="cfo">70 %</output></label>
-      <input id="cf" type="range" min="50" max="100" step="10" value="70"></div>
+    <div class="conf"><label for="cf">${t("howSure")} <output id="cfo">${s.conf} %</output></label>
+      <input id="cf" type="range" min="50" max="100" step="10" value="${s.conf}"></div>
     <div class="err" id="err" hidden></div>
     <button class="primary" id="go" disabled>${t("fastForward", { y: card.years })}</button></section>`;
 
@@ -248,13 +251,14 @@ function renderAsk(card) {
   stage().querySelectorAll(".clue").forEach(b => b.onclick = () =>
     b.getAttribute("aria-expanded") === "true" ? closeInfo() : openInfo(b.dataset.k, b));
   $("#basics").onclick = () => openInfo("basics", null);
-  const sel = v => { pick = v; $("#yes").classList.toggle("sel", v); $("#no").classList.toggle("sel", !v); $("#go").disabled = false; };
+  const sel = v => { s.pick = v; $("#yes").classList.toggle("sel", v); $("#no").classList.toggle("sel", !v); $("#go").disabled = false; };
+  if (s.pick !== null) sel(s.pick);
   $("#yes").onclick = () => sel(true); $("#no").onclick = () => sel(false);
-  $("#cf").oninput = e => { conf = +e.target.value; $("#cfo").textContent = conf + " %"; };
+  $("#cf").oninput = e => { s.conf = +e.target.value; $("#cfo").textContent = s.conf + " %"; };
   $("#go").onclick = async () => {
     $("#go").disabled = true;
-    const a = { card_id: card.id, day: pos, guess_beat: pick, confidence: conf, points: brierPoints(pick, conf, card),
-                played_on: stockholmDate(), ms: Date.now() - t0 };
+    const a = { card_id: card.id, day: pos, guess_beat: s.pick, confidence: s.conf, points: brierPoints(s.pick, s.conf, card),
+                played_on: stockholmDate(), ms: Date.now() - s.t0 };
     try { await store.submitAnswer(a); }
     catch (e) { $("#err").hidden = false; $("#err").textContent = t("saveError"); $("#go").disabled = false; return; }
     st.answers[card.id] = { ...a, recognised: false };
@@ -297,9 +301,9 @@ function infoBox(card, k) {
 }
 
 // ---------- reveal ----------
-function reveal(card) { show(() => renderReveal(card)); }
-function renderReveal(card) {
-  const a = st.answers[card.id], beat = card.stock > card.index, ok = a.guess_beat === beat, t0 = Date.now();
+function reveal(card) { const t0 = Date.now(); show(() => renderReveal(card, t0)); }
+function renderReveal(card, t0) {
+  const a = st.answers[card.id], beat = card.stock > card.index, ok = a.guess_beat === beat;
   stage().innerHTML = `<section class="card">
     <div class="eyebrow"><span>${esc(L(card.market))}</span><span>${esc(L(card.when))} → ${t("plusYears", { y: card.years })}</span></div>
     <div class="reveal-name">${esc(card.name)}</div>
@@ -386,16 +390,23 @@ function renderMicro(card) {
     <div class="options">${m.options.map((o, i) => `<button data-i="${i}">${esc(L(o))}</button>`).join("")}</div>
     <div id="mres" hidden></div>
     <button class="primary" id="next" hidden>${t("next")}</button></section>`;
-  stage().querySelectorAll("[data-i]").forEach(b => b.onclick = () => {
-    const choice = +b.dataset.i, correct = choice === m.correct;
-    stage().querySelectorAll("[data-i]").forEach(x => { x.disabled = true; if (+x.dataset.i === m.correct) x.classList.add("okay"); });
-    if (!correct) b.classList.add("nope");
+  const showResult = choice => {
+    const correct = choice === m.correct;
+    stage().querySelectorAll("[data-i]").forEach(x => {
+      x.disabled = true;
+      if (+x.dataset.i === m.correct) x.classList.add("okay"); else if (+x.dataset.i === choice) x.classList.add("nope");
+    });
     $("#mres").hidden = false;
     $("#mres").innerHTML = `<p class="${correct ? "good" : "bad"}"><b>${correct ? t("correct") : t("incorrect")}</b> ${esc(L(m.explain))}</p>`;
     $("#next").hidden = false;
-    st.micro[card.id] = { card_id: card.id, choice, correct };
+  };
+  stage().querySelectorAll("[data-i]").forEach(b => b.onclick = () => {
+    const choice = +b.dataset.i;
+    st.micro[card.id] = { card_id: card.id, choice, correct: choice === m.correct };
     store.submitMicro(st.micro[card.id]).catch(() => {});
+    showResult(choice);
   });
+  if (st.micro[card.id]) showResult(st.micro[card.id].choice);   // re-rendered after answering (language switch)
   $("#next").onclick = () => others(card);
 }
 
@@ -408,20 +419,20 @@ async function renderOthers(card) {
   try {
     const rows = await store.cardGuesses(card.id);
     const others = rows.filter(r => !r.me);
+    if (!$("#og")) return;
     $("#og").innerHTML = others.length ? `<ol class="league">${rows.sort((a, b) => b.points - a.points).map(r =>
       `<li class="${r.me ? "me" : ""}"><span>${esc(r.name)}${r.me ? ` (${t("you")})` : ""} · ${r.guess_beat ? t("guessYes") : t("guessNo")}, ${r.confidence} %</span><b>${r.points > 0 ? "+" : ""}${r.points}</b></li>`).join("")}</ol>`
       : t("noOthers");
-  } catch (e) { $("#og").textContent = t("saveError"); }
+  } catch (e) { if ($("#og")) $("#og").textContent = t("loadError"); }
 }
 
 // ---------- pre/post concept test ----------
-function test(kind) { show(() => renderTest(kind)); }
-function renderTest(kind) {
-  const picked = {};
+function test(kind) { const picked = {}; show(() => renderTest(kind, picked)); }
+function renderTest(kind, picked) {
   stage().innerHTML = `<section class="card">
     <h2>${kind === "pre" ? t("preTitle") : t("postTitle")}</h2><p class="muted">${t("testIntro")}</p>
     ${TEST.map((q, qi) => `<div class="qbox" role="radiogroup" aria-label="${qi + 1}"><p class="q">${qi + 1}. ${esc(L(q.q))}</p>${q.options.map((o, i) =>
-      `<label class="opt"><input type="radio" name="${q.id}" value="${i}"> ${esc(L(o))}</label>`).join("")}</div>`).join("")}
+      `<label class="opt"><input type="radio" name="${q.id}" value="${i}" ${picked[q.id] === i ? "checked" : ""}> ${esc(L(o))}</label>`).join("")}</div>`).join("")}
     <div class="err" id="err" hidden></div>
     <button class="primary" id="send">${t("submit")}</button></section>`;
   stage().querySelectorAll("input[type=radio]").forEach(r => r.onchange = () => { picked[r.name] = +r.value; });
@@ -432,8 +443,10 @@ function renderTest(kind) {
     try { await store.submitTest({ kind, answers: picked, score }); }
     catch (e) { $("#err").hidden = false; $("#err").textContent = t("saveError"); $("#send").disabled = false; return; }
     st.tests[kind] = true; st.tests[kind + "_score"] = score;
-    stage().innerHTML = `<section class="card"><p>${t("thanks")}</p><button class="primary" id="home">${t("next")}</button></section>`;
-    $("#home").onclick = home;
+    show(() => {
+      stage().innerHTML = `<section class="card"><p>${t("thanks")}</p><button class="primary" id="home">${t("next")}</button></section>`;
+      $("#home").onclick = home;
+    });
   };
 }
 

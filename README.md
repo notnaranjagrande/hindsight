@@ -49,19 +49,22 @@ python3 -m http.server 8123
 4. **GitHub Pages:** skapa ett repo (t.ex. `hindsight`), pusha den här mappen, och välj sedan **Settings → Pages → Deploy from branch → main / root**.
 5. **Länkar:** varje spelare får `https://<ditt-användarnamn>.github.io/hindsight/?p=<kod>`. Koden sparas på telefonen efter första besöket.
 
-## Före start (4 nov)
+## Före start
 
-- Sätt `studyStart` i `config.js` till `2026-11-05`.
+- Sätt `studyStart` i `config.js` till den dag som ska vara dag 1 (svensk tid). Ändra samma datum i `supabase/analysis.sql` (`v_retention`) och kör filen igen.
+- Lås korten: ändra inte `cards.json` efter att första spelaren har svarat.
 - Rensa testdata i SQL Editor:
   ```sql
   truncate answers, micro_answers, tests, events;
   ```
-- Testa med 2 personer.
+- Testa med en testspelare (se `how-to.md` i projektmappen) och radera den efteråt.
 
-## Kvar att göra
+## Kända begränsningar
 
-- **Riktiga nyckeltal i `cards.json`:** fälten `pe`, `pe_index`, `growth`, `growth_index` och `debt` är `null`. Tills de är ifyllda visar appen de gamla etiketterna ("Dyr") markerade som preliminära.
-- **21 kort:** i dag finns 10.
+- Korten är handplockade, inte slumpade ur ett index. 8 av 21 slår indexfonden.
+- Evergrande är ungefärlig (avnoterad). Skuld för bolagen i Hongkong och Sverige visas som ord, inte tal.
+- Indexsnitt för P/E och tillväxt saknas.
+- Poängen räknas i webbläsaren och facit ligger i `cards.json`, så den som vill kan fuska. Det är godtagbart i en liten vängrupp.
 
 ## Data
 
